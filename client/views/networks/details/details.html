@@ -1,0 +1,94 @@
+<template name="NetworksDetails">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> NetworksDetailsForm}}
+	</div>
+</template>
+
+<template name="NetworksDetailsForm">
+	<div id="networks-details-form" class="">
+		<h2 id="component-title">
+			<a href="#" id="form-back-button" class="btn btn-default" title="back">
+				<span class="fa fa-chevron-left">
+				</span>
+			</a>
+			Network Details
+		</h2>
+		<form role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}
+
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-network_id">
+				<label for="network_id">
+					Network ID
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-network_id">
+						{{network.network_id}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-network_name">
+				<label for="network_name">
+					Name
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-network_name">
+						{{network.network_name}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-etherscan_url">
+				<label for="etherscan_url">
+					Etherscan URL
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-etherscan_url">
+						{{network.etherscan_url}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-addressresolver">
+				<label for="addressresolver">
+					Addressresolver
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-addressresolver">
+						{{network.addressresolver}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-contract">
+				<label for="contract">
+					Contract Address
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-contract">
+						{{network.contract}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+					<a href="#" id="form-close-button" class="btn btn-primary">
+						OK
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+

@@ -1,0 +1,9 @@
+.idea
+.vscode
+env
+node_modules
+build
+test
+.node-xmlhttprequest-*
+package-lock.json
+password.txt

@@ -1,0 +1,123 @@
+<template name="Policies">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Policies
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		<div id="policies_intro" class="">
+			List of all policies:
+		</div>
+		{{> PoliciesPoliciesList}}
+	</div>
+</template>
+
+<template name="PoliciesPoliciesList">
+	<div id="policies-policies-list" class="">
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+			</div>
+		</form>
+		{{#if isNotEmpty}}
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> PoliciesPoliciesListTable}} {{/if}}
+		</div>
+		{{/if}}
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="PoliciesPoliciesListTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="customer">
+					Customer
+				</th>
+				<th class="th-sortable" data-sort="premium">
+					Premium
+				</th>
+				<th class="th-sortable" data-sort="riskId">
+					RiskId
+				</th>
+				<th class="th-sortable" data-sort="weight">
+					Weight
+				</th>
+				<th class="th-sortable" data-sort="calculatedPayout">
+					CalculatedPayout
+				</th>
+				<th class="th-sortable" data-sort="actualPayout">
+					ActualPayout
+				</th>
+				<th class="th-sortable" data-sort="state">
+					State
+				</th>
+				<th class="th-sortable" data-sort="stateTime">
+					StateTime
+				</th>
+				<th class="th-sortable" data-sort="stateMessage">
+					StateMessage
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> PoliciesPoliciesListTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="PoliciesPoliciesListTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{addressShort customer}}
+		</td>
+		<td>
+			{{premium}}
+		</td>
+		<td>
+			{{addressShort riskId}}
+		</td>
+		<td>
+			{{weight}}
+		</td>
+		<td>
+			{{calculatedPayout}}
+		</td>
+		<td>
+			{{actualPayout}}
+		</td>
+		<td>
+			{{state}}
+		</td>
+		<td>
+			{{formatDate stateTime 'DD.MM.YYYY hh:mm:ss'}}
+		</td>
+		<td>
+			{{stateMessage}}
+		</td>
+	</tr>
+</template>
+

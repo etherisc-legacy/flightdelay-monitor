@@ -1,0 +1,87 @@
+<template name="Ledger">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Ledger
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		<div id="ledger_intro" class="">
+			List of Ledger entries:
+		</div>
+		{{> LedgerLedgerList}}
+	</div>
+</template>
+
+<template name="LedgerLedgerList">
+	<div id="ledger-ledger-list" class="">
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+			</div>
+		</form>
+		{{#if isNotEmpty}}
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> LedgerLedgerListTable}} {{/if}}
+		</div>
+		{{/if}}
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="LedgerLedgerListTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="account">
+					Account
+				</th>
+				<th class="th-sortable" data-sort="description">
+					Description
+				</th>
+				<th class="th-sortable" data-sort="balance">
+					Balance
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> LedgerLedgerListTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="LedgerLedgerListTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{account}}
+		</td>
+		<td>
+			{{description}}
+		</td>
+		<td>
+			{{balance}}
+		</td>
+	</tr>
+</template>
+

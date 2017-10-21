@@ -1,0 +1,1590 @@
+{
+	"application": {
+		"title": "FlightDelayMonitor",
+		"roles": [
+			"admin",
+			"user"
+		],
+		"default_role": "user",
+		"collections": [
+			{
+				"name": "policies",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "id",
+						"title": "PolicyId",
+						"type": "integer"
+					},
+					{
+						"name": "customer",
+						"title": "Customer",
+						"type": "string"
+					},
+					{
+						"name": "premium",
+						"title": "Premium",
+						"type": "string"
+					},
+					{
+						"name": "riskId",
+						"title": "RiskId",
+						"type": "string"
+					},
+					{
+						"name": "weight",
+						"title": "Weight",
+						"type": "integer"
+					},
+					{
+						"name": "calculatedPayout",
+						"title": "CalculatedPayout",
+						"type": "string"
+					},
+					{
+						"name": "actualPayout",
+						"title": "ActualPayout",
+						"type": "string"
+					},
+					{
+						"name": "state",
+						"title": "State",
+						"type": "integer"
+					},
+					{
+						"name": "stateTime",
+						"title": "StateTime",
+						"type": "time"
+					},
+					{
+						"name": "stateMessage",
+						"title": "StateMessage",
+						"type": "integer"
+					},
+					{
+						"name": "proof",
+						"title": "Proof",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "risks",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "carrierFlightNumber",
+						"title": "CarrierFlightNumber",
+						"type": "string"
+					},
+					{
+						"name": "departureYearMonthDay",
+						"title": "DepartureYMD",
+						"type": "string"
+					},
+					{
+						"name": "arrivalTime",
+						"title": "ArrivalTime",
+						"type": "date",
+						"format": "DD.MM.YYYY hh:mm:ss"
+					},
+					{
+						"name": "delayInMinutes",
+						"title": "DelayInMinutes",
+						"type": "integer"
+					},
+					{
+						"name": "delay",
+						"title": "Delay",
+						"type": "integer"
+					},
+					{
+						"name": "cumulatedWeightedPremium",
+						"title": "CumWeightPremium",
+						"type": "integer"
+					},
+					{
+						"name": "premiumMultiplier",
+						"title": "PremiumMultiplier",
+						"type": "integer"
+					},
+					{
+						"name": "riskId",
+						"title": "RiskId",
+						"type": "string",
+						"display_helper": "addressShort"
+					}
+				]
+			},
+			{
+				"name": "ledger",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "account",
+						"title": "Account",
+						"type": "integer"
+					},
+					{
+						"name": "description",
+						"title": "Description",
+						"type": "string"
+					},
+					{
+						"name": "balance",
+						"title": "Balance",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "contracts",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "address",
+						"title": "Contract Address",
+						"type": "string",
+						"display_helper": "addressShort"
+					},
+					{
+						"name": "network",
+						"title": "Network",
+						"type": "string",
+						"input": "select",
+						"input_items": [
+							{
+								"value": "mainnet",
+								"title": "Mainnet"
+							},
+							{
+								"value": "ropsten",
+								"title": "Ropsten"
+							},
+							{
+								"value": "kovan",
+								"title": "Kovan"
+							},
+							{
+								"value": "rinkeby",
+								"title": "Rinkeby"
+							}
+						]
+					},
+					{
+						"name": "createTx",
+						"title": "Creation Tx",
+						"type": "string",
+						"display_helper": "addressShort"
+					},
+					{
+						"name": "createBlock",
+						"title": "Creation Block",
+						"type": "string"
+					},
+					{
+						"name": "createTime",
+						"title": "Creation Time",
+						"type": "date"
+					},
+					{
+						"name": "abi",
+						"title": "ABI",
+						"type": "string"
+					},
+					{
+						"name": "description",
+						"title": "Description",
+						"type": "string",
+						"input": "textarea"
+					},
+					{
+						"name": "commit",
+						"title": "Github Commit",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "networks",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "network_id",
+						"title": "Network ID",
+						"type": "string"
+					},
+					{
+						"name": "network_name",
+						"title": "Name",
+						"type": "string"
+					},
+					{
+						"name": "etherscan_url",
+						"title": "Etherscan URL",
+						"type": "string"
+					},
+					{
+						"name": "addressresolver",
+						"title": "Addressresolver",
+						"type": "string"
+					},
+					{
+						"name": "contract",
+						"title": "Contract Address",
+						"type": "string"
+					}
+				]
+			}
+		],
+		"queries": [
+			{
+				"name": "admin_users",
+				"collection": "users",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "admin_user",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": \":userId\" }",
+				"options": "{}"
+			},
+			{
+				"name": "users_null",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": null }",
+				"options": "{}"
+			},
+			{
+				"name": "current_user_data",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": \"Meteor.userId()\" }",
+				"options": "{}"
+			},
+			{
+				"name": "policies_list",
+				"collection": "policies",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "risks_list",
+				"collection": "risks",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "ledger_list",
+				"collection": "ledger",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "contract_list",
+				"collection": "contracts",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "contracts_null",
+				"collection": "contracts",
+				"find_one": true,
+				"filter": "{\"_id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "contract",
+				"collection": "contracts",
+				"find_one": true,
+				"filter": "{\"_id\":\":contractId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "network_list",
+				"collection": "networks",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "networks_null",
+				"collection": "networks",
+				"find_one": true,
+				"filter": "{\"_id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "network",
+				"collection": "networks",
+				"find_one": true,
+				"filter": "{\"_id\":\":networkId\"}",
+				"options": "{}"
+			}
+		],
+		"public_zone": {
+			"type": "zone",
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"items": [
+						{
+							"title": "Home",
+							"route": "home_public"
+						}
+					],
+					"object_type": "menu"
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"items": [
+						{
+							"title": "Register",
+							"route": "register"
+						},
+						{
+							"title": "Login",
+							"route": "login"
+						}
+					],
+					"object_type": "menu"
+				}
+			],
+			"pages": [
+				{
+					"name": "home_public",
+					"type": "page",
+					"components": [
+						{
+							"name": "home_jumbotron",
+							"type": "jumbotron",
+							"title": "FlightDelayMonitor",
+							"button_title": "Continue &raquo;",
+							"button_route": "login",
+							"object_type": "jumbotron"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"type": "page",
+					"template": "login"
+				},
+				{
+					"name": "register",
+					"type": "page",
+					"template": "register"
+				},
+				{
+					"name": "verify_email",
+					"type": "page",
+					"template": "verify_email",
+					"route_params": [
+						"verifyEmailToken"
+					]
+				},
+				{
+					"name": "forgot_password",
+					"type": "page",
+					"template": "forgot_password"
+				},
+				{
+					"name": "reset_password",
+					"type": "page",
+					"template": "reset_password",
+					"route_params": [
+						"resetPasswordToken"
+					]
+				}
+			]
+		},
+		"private_zone": {
+			"type": "zone",
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"items": [
+						{
+							"title": "Home",
+							"route": "home_private",
+							"icon_class": "fa fa-home"
+						},
+						{
+							"title": "Policies",
+							"route": "policies"
+						},
+						{
+							"title": "Risks",
+							"route": "risks"
+						},
+						{
+							"title": "Ledger",
+							"route": "ledger"
+						},
+						{
+							"title": "Contracts",
+							"route": "contracts"
+						},
+						{
+							"title": "Networks",
+							"route": "networks"
+						}
+					],
+					"object_type": "menu"
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"items": [
+						{
+							"title": "Admin",
+							"route": "admin",
+							"icon_class": "fa fa-wrench"
+						},
+						{
+							"title": "{{userEmail}}",
+							"icon_class": "fa fa-cog",
+							"items": [
+								{
+									"title": "Settings",
+									"route": "user_settings"
+								},
+								{
+									"title": "Logout",
+									"route": "logout"
+								}
+							]
+						}
+					],
+					"object_type": "menu"
+				}
+			],
+			"pages": [
+				{
+					"name": "home_private",
+					"type": "page",
+					"title": "Welcome {{userFullName}}!"
+				},
+				{
+					"name": "admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-stacked nav-pills",
+							"items": [
+								{
+									"title": "Users",
+									"route": "admin.users"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"roles": [
+						"admin"
+					],
+					"pages": [
+						{
+							"name": "users",
+							"type": "page",
+							"components": [
+								{
+									"name": "view",
+									"type": "data_view",
+									"title": "Users",
+									"query_name": "admin_users",
+									"text_if_empty": "No users yet",
+									"insert_route": "admin.users.insert",
+									"details_route": "admin.users.details",
+									"edit_route": "admin.users.edit",
+									"details_route_params": [
+										{
+											"name": "userId",
+											"value": "this._id"
+										}
+									],
+									"edit_route_params": [
+										{
+											"name": "userId",
+											"value": "this._id"
+										}
+									],
+									"fields": [
+										{
+											"name": "profile.name",
+											"title": "Name",
+											"type": "string"
+										},
+										{
+											"name": "profile.email",
+											"title": "E-mail",
+											"type": "string"
+										},
+										{
+											"name": "roles",
+											"title": "Role",
+											"type": "string"
+										}
+									],
+									"object_type": "data_view"
+								}
+							],
+							"pages": [
+								{
+									"name": "details",
+									"type": "page",
+									"components": [
+										{
+											"name": "details_form",
+											"type": "form",
+											"title": "User details",
+											"query_name": "admin_user",
+											"mode": "read_only",
+											"close_route": "admin.users",
+											"back_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string"
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email"
+												},
+												{
+													"name": "roles",
+													"title": "Role",
+													"type": "string"
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"route_params": [
+										"userId"
+									]
+								},
+								{
+									"name": "insert",
+									"type": "page",
+									"components": [
+										{
+											"name": "insert_form",
+											"type": "form",
+											"title": "Add new user",
+											"query_name": "users_null",
+											"mode": "insert",
+											"submit_route": "admin.users",
+											"cancel_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string",
+													"required": true
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email",
+													"required": true
+												},
+												{
+													"name": "password",
+													"title": "Password",
+													"type": "string",
+													"required": true,
+													"input": "password"
+												}
+											],
+											"object_type": "form"
+										}
+									]
+								},
+								{
+									"name": "edit",
+									"type": "page",
+									"components": [
+										{
+											"name": "edit_form",
+											"type": "form",
+											"title": "Edit user",
+											"query_name": "admin_user",
+											"mode": "update",
+											"submit_route": "admin.users",
+											"cancel_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string",
+													"required": true
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email",
+													"required": true
+												},
+												{
+													"name": "roles",
+													"title": "Role",
+													"type": "array",
+													"input": "radio",
+													"input_items": [
+														{
+															"value": "user",
+															"title": "User"
+														},
+														{
+															"value": "admin",
+															"title": "Admin"
+														},
+														{
+															"value": "blocked",
+															"title": "Blocked"
+														}
+													]
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"route_params": [
+										"userId"
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "user_settings",
+					"type": "page",
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-stacked nav-pills",
+							"items": [
+								{
+									"title": "Profile",
+									"route": "user_settings.profile"
+								},
+								{
+									"title": "Change password",
+									"route": "user_settings.change_pass"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"roles": [
+						"user",
+						"admin"
+					],
+					"pages": [
+						{
+							"name": "profile",
+							"type": "page",
+							"components": [
+								{
+									"name": "edit_form",
+									"type": "form",
+									"title": "Edit your profile",
+									"query_name": "current_user_data",
+									"mode": "update",
+									"submit_route": "user_settings.profile",
+									"fields": [
+										{
+											"name": "profile.name",
+											"title": "Name",
+											"type": "string",
+											"required": true
+										},
+										{
+											"name": "profile.email",
+											"title": "E-mail",
+											"type": "email",
+											"required": true
+										},
+										{
+											"name": "profile.facebook",
+											"title": "Facebook URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.google",
+											"title": "Google+ URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.twitter",
+											"title": "Twitter ID",
+											"type": "string"
+										},
+										{
+											"name": "profile.website",
+											"title": "Website URL",
+											"type": "string"
+										}
+									],
+									"object_type": "form"
+								}
+							]
+						},
+						{
+							"name": "change_pass",
+							"type": "page",
+							"template": "change_pass"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"type": "page",
+					"template": "logout"
+				},
+				{
+					"name": "policies",
+					"type": "page",
+					"title": "Policies",
+					"components": [
+						{
+							"name": "policies_intro",
+							"type": "div",
+							"text": "List of all policies:",
+							"object_type": "div"
+						},
+						{
+							"name": "policies_list",
+							"type": "data_view",
+							"query_name": "policies_list",
+							"fields": [
+								{
+									"name": "id",
+									"title": "PolicyId",
+									"type": "integer",
+									"show_in_dataview": false
+								},
+								{
+									"name": "customer",
+									"title": "Customer",
+									"type": "string",
+									"display_helper": "addressShort"
+								},
+								{
+									"name": "premium",
+									"title": "Premium",
+									"type": "string"
+								},
+								{
+									"name": "riskId",
+									"title": "RiskId",
+									"type": "string",
+									"display_helper": "addressShort",
+									"join_collection": "risks",
+									"join_container": "risk",
+									"join_fields": [
+										"\"carrierFlightNumber\""
+									]
+								},
+								{
+									"name": "weight",
+									"title": "Weight",
+									"type": "integer"
+								},
+								{
+									"name": "calculatedPayout",
+									"title": "CalculatedPayout",
+									"type": "string"
+								},
+								{
+									"name": "actualPayout",
+									"title": "ActualPayout",
+									"type": "string"
+								},
+								{
+									"name": "state",
+									"title": "State",
+									"type": "integer"
+								},
+								{
+									"name": "stateTime",
+									"title": "StateTime",
+									"type": "date",
+									"format": "DD.MM.YYYY hh:mm:ss"
+								},
+								{
+									"name": "stateMessage",
+									"title": "StateMessage",
+									"type": "string"
+								}
+							],
+							"object_type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "risks",
+					"type": "page",
+					"title": "Risks",
+					"components": [
+						{
+							"name": "risks_intro",
+							"type": "div",
+							"text": "List of all risks:",
+							"object_type": "div"
+						},
+						{
+							"name": "risks_list",
+							"type": "data_view",
+							"query_name": "risks_list",
+							"object_type": "data_view"
+						}
+					],
+					"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"page-container\" id=\"content\">\n\t\t<div class=\"row\" id=\"title_row\">\n\t\t\t<div class=\"col-md-12\">\n\t\t\t\t<h2 id=\"page_title\" class=\"pull-left\">\n\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" class=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t<span class=\"fa fa-chevron-left\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t\t<span id=\"page-title-icon\" class=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t</span>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t</h2>\n\t\t\t\t<div id=\"page_menu\" class=\"pull-right\">\n\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" class=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t<span class=\"fa fa-times\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<p id=\"page_text\">\n\t\t\t\n\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\n\t\t</p>\n\t</div>\n\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t</div>\n</template>\n\n",
+					"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
+					"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<div className=\"page-container\" id=\"content\">\n\t\t\t\t\t<div className=\"row\" id=\"title_row\">\n\t\t\t\t\t\t<div className=\"col-md-12\">\n\t\t\t\t\t\t\t<h2 id=\"page_title\" className=\"pull-left\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" className=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-chevron-left\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t<span id=\"page-title-icon\" className=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</h2>\n\t\t\t\t\t\t\t<div id=\"page_menu\" className=\"pull-right\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" className=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-times\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<p id=\"page_text\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t\t\t\t</div>\n\n\t\t\t</div>\n\t\t);\n\t}\n});\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);",
+					"gasoline": {
+						"type": "gasoline",
+						"templates": [
+							{
+								"name": "TEMPLATE_NAME",
+								"children": [
+									{
+										"children": [
+											{
+												"children": [
+													{
+														"children": [
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"type": "html",
+																				"element": "span",
+																				"attributes": [
+																					{
+																						"name": "class",
+																						"value": "fa fa-chevron-left"
+																					}
+																				],
+																				"object_type": "gas_html"
+																			}
+																		],
+																		"type": "html",
+																		"element": "a",
+																		"attributes": [
+																			{
+																				"name": "href",
+																				"value": "#"
+																			},
+																			{
+																				"name": "id",
+																				"value": "page-back-button"
+																			},
+																			{
+																				"name": "class",
+																				"value": "btn btn-default"
+																			},
+																			{
+																				"name": "title",
+																				"value": "back"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	},
+																	{
+																		"type": "html",
+																		"element": "span",
+																		"attributes": [
+																			{
+																				"name": "id",
+																				"value": "page-title-icon"
+																			},
+																			{
+																				"name": "class",
+																				"value": "PAGE_TITLE_ICON_CLASS"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	},
+																	{
+																		"type": "text",
+																		"text": "\n\t\t\t\t\tPAGE_TITLE\n\t\t\t\t",
+																		"object_type": "gas_text"
+																	}
+																],
+																"type": "html",
+																"element": "h2",
+																"attributes": [
+																	{
+																		"name": "id",
+																		"value": "page_title"
+																	},
+																	{
+																		"name": "class",
+																		"value": "pull-left"
+																	}
+																],
+																"object_type": "gas_html"
+															},
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"type": "html",
+																				"element": "span",
+																				"attributes": [
+																					{
+																						"name": "class",
+																						"value": "fa fa-times"
+																					}
+																				],
+																				"object_type": "gas_html"
+																			}
+																		],
+																		"type": "html",
+																		"element": "a",
+																		"attributes": [
+																			{
+																				"name": "href",
+																				"value": "#"
+																			},
+																			{
+																				"name": "id",
+																				"value": "page-close-button"
+																			},
+																			{
+																				"name": "class",
+																				"value": "btn btn-default pull-right"
+																			},
+																			{
+																				"name": "title",
+																				"value": "Close"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	}
+																],
+																"type": "html",
+																"attributes": [
+																	{
+																		"name": "id",
+																		"value": "page_menu"
+																	},
+																	{
+																		"name": "class",
+																		"value": "pull-right"
+																	}
+																],
+																"object_type": "gas_html"
+															}
+														],
+														"type": "html",
+														"attributes": [
+															{
+																"name": "class",
+																"value": "col-md-12"
+															}
+														],
+														"object_type": "gas_html"
+													}
+												],
+												"type": "html",
+												"attributes": [
+													{
+														"name": "class",
+														"value": "row"
+													},
+													{
+														"name": "id",
+														"value": "title_row"
+													}
+												],
+												"object_type": "gas_html"
+											},
+											{
+												"children": [
+													{
+														"type": "text",
+														"text": "\n\t\t\tPAGE_TEXT\n\t\t",
+														"object_type": "gas_text"
+													}
+												],
+												"type": "html",
+												"element": "p",
+												"attributes": [
+													{
+														"name": "id",
+														"value": "page_text"
+													}
+												],
+												"object_type": "gas_html"
+											}
+										],
+										"type": "html",
+										"attributes": [
+											{
+												"name": "class",
+												"value": "page-container"
+											},
+											{
+												"name": "id",
+												"value": "content"
+											}
+										],
+										"object_type": "gas_html"
+									},
+									{
+										"type": "html",
+										"attributes": [
+											{
+												"name": "id",
+												"value": "background-image"
+											},
+											{
+												"name": "style",
+												"value": "background-image: url(BACKGROUND_IMAGE);"
+											}
+										],
+										"object_type": "gas_html"
+									}
+								],
+								"type": "template"
+							}
+						]
+					}
+				},
+				{
+					"name": "ledger",
+					"type": "page",
+					"title": "Ledger",
+					"components": [
+						{
+							"name": "ledger_intro",
+							"type": "div",
+							"text": "List of Ledger entries:",
+							"object_type": "div"
+						},
+						{
+							"name": "ledger_list",
+							"type": "data_view",
+							"query_name": "ledger_list",
+							"object_type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "contracts",
+					"type": "page",
+					"components": [
+						{
+							"name": "contracts_intro",
+							"type": "div",
+							"object_type": "div"
+						},
+						{
+							"name": "contracts_list",
+							"type": "data_view",
+							"title": "Contracts",
+							"query_name": "contract_list",
+							"insert_route": "contracts.insert",
+							"details_route": "contracts.details",
+							"edit_route": "contracts.update",
+							"details_route_params": [
+								{
+									"name": "contractId",
+									"value": "this._id"
+								}
+							],
+							"edit_route_params": [
+								{
+									"name": "contractId",
+									"value": "this._id"
+								}
+							],
+							"object_type": "data_view"
+						}
+					],
+					"pages": [
+						{
+							"name": "details",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "Contract Details",
+									"query_name": "contract",
+									"mode": "read_only",
+									"close_route": "contracts",
+									"back_route": "contracts",
+									"fields": [
+										{
+											"name": "address",
+											"title": "Contract Address",
+											"type": "string"
+										},
+										{
+											"name": "network",
+											"title": "Network",
+											"type": "string",
+											"input": "select",
+											"input_items": [
+												{
+													"value": "mainnet",
+													"title": "Mainnet"
+												},
+												{
+													"value": "ropsten",
+													"title": "Ropsten"
+												},
+												{
+													"value": "kovan",
+													"title": "Kovan"
+												},
+												{
+													"value": "rinkeby",
+													"title": "Rinkeby"
+												}
+											]
+										},
+										{
+											"name": "createTx",
+											"title": "Creation Tx",
+											"type": "string"
+										},
+										{
+											"name": "createBlock",
+											"title": "Creation Block",
+											"type": "string"
+										},
+										{
+											"name": "createTime",
+											"title": "Creation Time",
+											"type": "date"
+										},
+										{
+											"name": "abi",
+											"title": "ABI",
+											"type": "string"
+										},
+										{
+											"name": "description",
+											"title": "Description",
+											"type": "string",
+											"input": "textarea"
+										},
+										{
+											"name": "commit",
+											"title": "Github Commit",
+											"type": "string"
+										}
+									],
+									"object_type": "form"
+								}
+							],
+							"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"page-container\" id=\"content\">\n\t\t<div class=\"row\" id=\"title_row\">\n\t\t\t<div class=\"col-md-12\">\n\t\t\t\t<h2 id=\"page_title\" class=\"pull-left\">\n\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" class=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t<span class=\"fa fa-chevron-left\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t\t<span id=\"page-title-icon\" class=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t</span>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t</h2>\n\t\t\t\t<div id=\"page_menu\" class=\"pull-right\">\n\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" class=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t<span class=\"fa fa-times\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<p id=\"page_text\">\n\t\t\t\n\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\n\t\t</p>\n\t</div>\n\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t</div>\n</template>\n\n",
+							"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
+							"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<div className=\"page-container\" id=\"content\">\n\t\t\t\t\t<div className=\"row\" id=\"title_row\">\n\t\t\t\t\t\t<div className=\"col-md-12\">\n\t\t\t\t\t\t\t<h2 id=\"page_title\" className=\"pull-left\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" className=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-chevron-left\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t<span id=\"page-title-icon\" className=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</h2>\n\t\t\t\t\t\t\t<div id=\"page_menu\" className=\"pull-right\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" className=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-times\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<p id=\"page_text\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t\t\t\t</div>\n\n\t\t\t</div>\n\t\t);\n\t}\n});\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);",
+							"gasoline": {
+								"type": "gasoline",
+								"templates": [
+									{
+										"name": "TEMPLATE_NAME",
+										"children": [
+											{
+												"children": [
+													{
+														"children": [
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"children": [
+																					{
+																						"type": "html",
+																						"element": "span",
+																						"attributes": [
+																							{
+																								"name": "class",
+																								"value": "fa fa-chevron-left"
+																							}
+																						],
+																						"object_type": "gas_html"
+																					}
+																				],
+																				"type": "html",
+																				"element": "a",
+																				"attributes": [
+																					{
+																						"name": "href",
+																						"value": "#"
+																					},
+																					{
+																						"name": "id",
+																						"value": "page-back-button"
+																					},
+																					{
+																						"name": "class",
+																						"value": "btn btn-default"
+																					},
+																					{
+																						"name": "title",
+																						"value": "back"
+																					}
+																				],
+																				"object_type": "gas_html"
+																			},
+																			{
+																				"type": "html",
+																				"element": "span",
+																				"attributes": [
+																					{
+																						"name": "id",
+																						"value": "page-title-icon"
+																					},
+																					{
+																						"name": "class",
+																						"value": "PAGE_TITLE_ICON_CLASS"
+																					}
+																				],
+																				"object_type": "gas_html"
+																			},
+																			{
+																				"type": "text",
+																				"text": "\n\t\t\t\t\tPAGE_TITLE\n\t\t\t\t",
+																				"object_type": "gas_text"
+																			}
+																		],
+																		"type": "html",
+																		"element": "h2",
+																		"attributes": [
+																			{
+																				"name": "id",
+																				"value": "page_title"
+																			},
+																			{
+																				"name": "class",
+																				"value": "pull-left"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	},
+																	{
+																		"children": [
+																			{
+																				"children": [
+																					{
+																						"type": "html",
+																						"element": "span",
+																						"attributes": [
+																							{
+																								"name": "class",
+																								"value": "fa fa-times"
+																							}
+																						],
+																						"object_type": "gas_html"
+																					}
+																				],
+																				"type": "html",
+																				"element": "a",
+																				"attributes": [
+																					{
+																						"name": "href",
+																						"value": "#"
+																					},
+																					{
+																						"name": "id",
+																						"value": "page-close-button"
+																					},
+																					{
+																						"name": "class",
+																						"value": "btn btn-default pull-right"
+																					},
+																					{
+																						"name": "title",
+																						"value": "Close"
+																					}
+																				],
+																				"object_type": "gas_html"
+																			}
+																		],
+																		"type": "html",
+																		"attributes": [
+																			{
+																				"name": "id",
+																				"value": "page_menu"
+																			},
+																			{
+																				"name": "class",
+																				"value": "pull-right"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	}
+																],
+																"type": "html",
+																"attributes": [
+																	{
+																		"name": "class",
+																		"value": "col-md-12"
+																	}
+																],
+																"object_type": "gas_html"
+															}
+														],
+														"type": "html",
+														"attributes": [
+															{
+																"name": "class",
+																"value": "row"
+															},
+															{
+																"name": "id",
+																"value": "title_row"
+															}
+														],
+														"object_type": "gas_html"
+													},
+													{
+														"children": [
+															{
+																"type": "text",
+																"text": "\n\t\t\tPAGE_TEXT\n\t\t",
+																"object_type": "gas_text"
+															}
+														],
+														"type": "html",
+														"element": "p",
+														"attributes": [
+															{
+																"name": "id",
+																"value": "page_text"
+															}
+														],
+														"object_type": "gas_html"
+													}
+												],
+												"type": "html",
+												"attributes": [
+													{
+														"name": "class",
+														"value": "page-container"
+													},
+													{
+														"name": "id",
+														"value": "content"
+													}
+												],
+												"object_type": "gas_html"
+											},
+											{
+												"type": "html",
+												"attributes": [
+													{
+														"name": "id",
+														"value": "background-image"
+													},
+													{
+														"name": "style",
+														"value": "background-image: url(BACKGROUND_IMAGE);"
+													}
+												],
+												"object_type": "gas_html"
+											}
+										],
+										"type": "template"
+									}
+								]
+							},
+							"route_params": [
+								"contractId"
+							]
+						},
+						{
+							"name": "insert",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "New Contract",
+									"query_name": "contracts_null",
+									"mode": "insert",
+									"submit_route": "contracts",
+									"cancel_route": "contracts",
+									"object_type": "form"
+								}
+							]
+						},
+						{
+							"name": "update",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "Edit Contract",
+									"query_name": "contract",
+									"mode": "update",
+									"submit_route": "contracts",
+									"cancel_route": "contracts",
+									"object_type": "form"
+								}
+							],
+							"route_params": [
+								"contractId"
+							]
+						}
+					]
+				},
+				{
+					"name": "networks",
+					"type": "page",
+					"components": [
+						{
+							"name": "networks_intro",
+							"type": "div",
+							"object_type": "div"
+						},
+						{
+							"name": "view",
+							"type": "data_view",
+							"title": "Networks",
+							"query_name": "network_list",
+							"insert_route": "networks.insert",
+							"details_route": "networks.details",
+							"edit_route": "networks.update",
+							"details_route_params": [
+								{
+									"name": "networkId",
+									"value": "this._id"
+								}
+							],
+							"edit_route_params": [
+								{
+									"name": "networkId",
+									"value": "this._id"
+								}
+							],
+							"object_type": "data_view"
+						}
+					],
+					"pages": [
+						{
+							"name": "details",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "Network Details",
+									"query_name": "network",
+									"mode": "read_only",
+									"close_route": "networks",
+									"back_route": "networks",
+									"object_type": "form"
+								}
+							],
+							"route_params": [
+								"networkId"
+							]
+						},
+						{
+							"name": "insert",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "New Network",
+									"query_name": "networks_null",
+									"mode": "insert",
+									"submit_route": "networks",
+									"cancel_route": "networks",
+									"object_type": "form"
+								}
+							]
+						},
+						{
+							"name": "update",
+							"type": "page",
+							"components": [
+								{
+									"name": "form",
+									"type": "form",
+									"title": "Edit Network",
+									"query_name": "network",
+									"mode": "update",
+									"submit_route": "networks",
+									"cancel_route": "networks",
+									"object_type": "form"
+								}
+							],
+							"route_params": [
+								"networkId"
+							]
+						}
+					]
+				}
+			]
+		},
+		"server_startup_code": "var winston = require('winston');\n\n\nString.prototype.padLeft = function (length) {\n        var pad = ' '.repeat(length);\n        return String(pad + this).slice(-length);\n};\n\nString.prototype.padRight = function(l,c) {\n  return this+Array(Math.max(0, l-this.length+1)).join(c||\" \");};\n\nvar ServerLogger = new (winston.Logger)({\n  transports: [\n    new (winston.transports.File)({\n      filename: 'Server.log',\n      json: false,\n      timestamp: function() {\n        return new Date().toISOString();\n      },\n      formatter: function(options) {\n        // Options object will be passed to the format function. \n        // It's general properties are: \n        //\t\ttimestamp, \n        //\t\tlevel, \n        //\t\tmessage, \n        //\t\tmeta. \n        // Depending on the transport type may be additional properties.\n        // Return string will be passed to logger.\n        var levelString = options.level.toUpperCase().padRight(10);\n        return options.timestamp() + \n          ' ' + \n          levelString +\n          (options.message ? options.message : '') +\n          (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta) : '' );\n      }})\n   ]\n});\n\nvar Web3 = require('web3');\n\nweb3 = new Web3(new Web3.providers.HttpProvider(\"http://35.158.95.25:8545\"));\n\n\n\n\n/*\nconsole.log('Server started');\n\nvar policyCount = FD.getPolicyCount();\n\nvar statusToString = function (status) {\n        var sts = {\n                0 : \"Applied\",\n                1 : \"Accepted\",\n                2 : \"Revoked\",\n                3 : \"Paid Out\",\n                4 : \"Expired\",\n                5 : \"Declined\"\n        };\n        return sts[status];\n};\n\nvar policyFormatterLong = function (policyId, policy, risk) {\n\tif (!Policies.findOne({id:policyId})) {\n        Policies.insert({ \n                id: policyId,\n                customer: policy[0], \n                state: statusToString(policy[6].toNumber()), \n                premium: web3.fromWei(policy[1]).toFixed(2),\n                riskId: policy[2],\n                weight: policy[3].toFixed(0),\n                calculatedPayout: web3.fromWei(policy[4]).toFixed(2), \n                actualPayout: web3.fromWei(policy[5]).toFixed(2),\n                stateTime: new Date(policy[7].toNumber() * 1000).toLocaleString('de'),\n\t\t\t\tstateMessage: policy[8].toNumber()\n        });\n\t}\n\n    if (!Risks.findOne({riskId: policy[2]})) {\n\t\tRisks.insert({\n          riskId: policy[2],\n          carrierFlightNumber: risk[0],\n          departureYearMonthDay: risk[1],\n          arrivalTime: new Date(risk[2].toNumber() * 1000).toLocaleString('de'), \n          delayInMinutes: risk[3].toNumber(),\n          delay: risk[4].toNumber(),\n          cumulatedWeightedPremium: web3.fromWei(risk[5]).toFixed(2),\n          premiumMultiplier: risk[6].toFixed(2)\n        });\n\t}\n  \n};\n\nPolicies.remove({});\n\nfor (var id = 0; id < policyCount; id++) {\n\ttry {\n\t\tif (!Policies.findOne({id: id})) {\n          console.log(id);\n          var policy = Meteor.wrapAsync(FD.policies)(id);\n          var risk = Meteor.wrapAsync(FD.risks)(policy[2]);\n          policyFormatterLong(id, policy, risk);\n        }\n\t} catch (e) {\n\t\tconsole.log(e);\n\t\tbreak;\n\t}\n}\n\nLedger.remove({});\nLedger.insert({\n\taccount: 0,\n\tbalance: web3.fromWei(FD.ledger(0)).toFixed(4),\n\tdescription: 'Premiums'\n});\n\nLedger.insert({\n\taccount: 1,\n\tbalance: web3.fromWei(FD.ledger(1)).toFixed(4),\n\tdescription: 'Risk Fund'\n});\n\nLedger.insert({\n\taccount: 2,\n\tbalance: web3.fromWei(FD.ledger(2)).toFixed(4),\n\tdescription: 'Payouts'\n});\n\nLedger.insert({\n\taccount: 3,\n\tdescription: 'Balance',\n\tbalance: web3.fromWei(FD.ledger(3)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 4,\n\tdescription: 'Reward',\n\tbalance: web3.fromWei(FD.ledger(4)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 5,\n\tdescription: 'OraclizeCosts',\n\tbalance: web3.fromWei(FD.ledger(5)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 6,\n\tdescription: 'Contract Balance',\n\tbalance: web3.fromWei(web3.eth.getBalance(contract_address)).toFixed(4)\n});\n\n*/\n",
+		"client_startup_code": "Template.registerHelper(\"addressShort\",  function (x) {\n  return x.slice(0,7) + '...';\n} );\n\n\n",
+		"copy_files": [
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayNewPolicy.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayNewPolicy.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayLedger.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayLedger.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayUnderwrite.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayUnderwrite.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayAccessController.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayAccessController.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayController.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayController.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayDatabase.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayDatabase.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayPayout.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayPayout.json"
+			},
+			{
+				"source": "../flightDelay/build/contracts/FlightDelayAddressResolver.json",
+				"dest": "SERVER_LIB_DIR/FlightDelayAddressResolver.json"
+			}
+		],
+		"packages": {
+			"npm": [
+				"web3",
+				"winston"
+			]
+		}
+	}
+}

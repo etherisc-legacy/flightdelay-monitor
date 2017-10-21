@@ -1,0 +1,137 @@
+<template name="Contracts">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		<div id="contracts_intro" class="">
+		</div>
+		{{> ContractsContractsList}}
+	</div>
+</template>
+
+<template name="ContractsContractsList">
+	<div id="contracts-contracts-list" class="">
+		<h2 id="component-title">
+			Contracts
+		</h2>
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-insert" class="form-group {{insertButtonClass}}">
+				<button type="submit" id="dataview-insert-button" class="btn btn-success">
+					<span class="fa fa-plus">
+					</span>
+					Add new
+				</button>
+			</div>
+			<div id="dataview-controls-search">
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+			</div>
+		</form>
+		{{#if isNotEmpty}}
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> ContractsContractsListTable}} {{/if}}
+		</div>
+		{{/if}}
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="ContractsContractsListTable">
+	<table id="dataview-table" class="table table-striped table-hover">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="address">
+					Contract Address
+				</th>
+				<th class="th-sortable" data-sort="network">
+					Network
+				</th>
+				<th class="th-sortable" data-sort="createTx">
+					Creation Tx
+				</th>
+				<th class="th-sortable" data-sort="createBlock">
+					Creation Block
+				</th>
+				<th class="th-sortable" data-sort="createTime">
+					Creation Time
+				</th>
+				<th class="th-sortable" data-sort="abi">
+					ABI
+				</th>
+				<th class="th-sortable" data-sort="description">
+					Description
+				</th>
+				<th class="th-sortable" data-sort="commit">
+					Github Commit
+				</th>
+				<th>
+					&nbsp;
+				</th>
+				<th>
+					&nbsp;
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> ContractsContractsListTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="ContractsContractsListTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{addressShort address}}
+		</td>
+		<td>
+			{{network}}
+		</td>
+		<td>
+			{{addressShort createTx}}
+		</td>
+		<td>
+			{{createBlock}}
+		</td>
+		<td>
+			{{formatDate createTime ''}}
+		</td>
+		<td>
+			{{abi}}
+		</td>
+		<td>
+			{{description}}
+		</td>
+		<td>
+			{{commit}}
+		</td>
+		<td class="td-icon">
+			<span id="edit-button" class="fa fa-pencil {{editButtonClass}}" title="Edit">
+			</span>
+		</td>
+		<td class="td-icon">
+			<span id="delete-button" class="fa fa-trash-o {{deleteButtonClass}}" title="Delete">
+			</span>
+		</td>
+	</tr>
+</template>
+
