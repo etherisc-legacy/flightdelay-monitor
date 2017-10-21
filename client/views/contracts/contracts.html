@@ -60,11 +60,20 @@
 	<table id="dataview-table" class="table table-striped table-hover">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="address">
-					Contract Address
+				<th class="th-sortable" data-sort="contractId">
+					Contract ID
+				</th>
+				<th class="th-sortable" data-sort="version">
+					Version
 				</th>
 				<th class="th-sortable" data-sort="network">
 					Network
+				</th>
+				<th class="th-sortable" data-sort="address">
+					Contract Address
+				</th>
+				<th class="th-sortable" data-sort="abi">
+					ABI
 				</th>
 				<th class="th-sortable" data-sort="createTx">
 					Creation Tx
@@ -74,9 +83,6 @@
 				</th>
 				<th class="th-sortable" data-sort="createTime">
 					Creation Time
-				</th>
-				<th class="th-sortable" data-sort="abi">
-					ABI
 				</th>
 				<th class="th-sortable" data-sort="description">
 					Description
@@ -101,10 +107,19 @@
 <template name="ContractsContractsListTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{addressShort address}}
+			{{contractId}}
+		</td>
+		<td>
+			{{version}}
 		</td>
 		<td>
 			{{network}}
+		</td>
+		<td>
+			{{addressShort address}}
+		</td>
+		<td>
+			{{abi}}
 		</td>
 		<td>
 			{{addressShort createTx}}
@@ -114,9 +129,6 @@
 		</td>
 		<td>
 			{{formatDate createTime ''}}
-		</td>
-		<td>
-			{{abi}}
 		</td>
 		<td>
 			{{description}}

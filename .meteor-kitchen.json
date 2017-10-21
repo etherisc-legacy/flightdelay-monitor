@@ -14,7 +14,7 @@
 		},
 		{
 			"path": "server/server.js",
-			"checksum": "b7cbae4cd2e45195e301730272515ee50a87f952"
+			"checksum": "eb0366118655bb3153ed8f46f001a24aa29bebaf"
 		},
 		{
 			"path": "client/views/not_found/not_found.html",
@@ -274,11 +274,11 @@
 		},
 		{
 			"path": "client/views/contracts/contracts.html",
-			"checksum": "6791714ccd80b61c146f5500e40edb67daabc023"
+			"checksum": "e7899c764ff63f45220decd3da312ffe56129ab6"
 		},
 		{
 			"path": "client/views/contracts/contracts.js",
-			"checksum": "3e9527ab3772ee804f8fe6ce8779c89eae77cbc2"
+			"checksum": "7be9ca13c3f7a6bd7317bbc5fcb0a1414ed8ac06"
 		},
 		{
 			"path": "client/views/contracts/contracts_controller.js",
@@ -298,7 +298,7 @@
 		},
 		{
 			"path": "client/views/contracts/insert/insert.html",
-			"checksum": "16dce11dfffa3909189cefc5b2186f27edbd5539"
+			"checksum": "390f8e0b120d0da0eb7db71f7cf30dc048eff488"
 		},
 		{
 			"path": "client/views/contracts/insert/insert.js",
@@ -310,7 +310,7 @@
 		},
 		{
 			"path": "client/views/contracts/update/update.html",
-			"checksum": "e2cbdf9dfa7ba58b2a7857d4b01e5339d10b7d75"
+			"checksum": "373537ec10f392da4c1f851034abb5bd674744b8"
 		},
 		{
 			"path": "client/views/contracts/update/update.js",
@@ -449,36 +449,40 @@
 			"checksum": "3a865244eb30a71b4a15a9062bc391ae7dbb62f4"
 		},
 		{
-			"path": "server/lib/FlightDelayNewPolicy.json",
+			"path": "private/artifacts/FlightDelayNewPolicy.json",
 			"checksum": "cd3a72571e0e53389d0b82b2ec1632f3ee611cf2"
 		},
 		{
-			"path": "server/lib/FlightDelayLedger.json",
+			"path": "private/artifacts/FlightDelayLedger.json",
 			"checksum": "a304c99720b45d84068919b0085f4e0848011ed1"
 		},
 		{
-			"path": "server/lib/FlightDelayUnderwrite.json",
+			"path": "private/artifacts/FlightDelayUnderwrite.json",
 			"checksum": "d4be834688352f3bc549b3ed92e9909b3b6b5c00"
 		},
 		{
-			"path": "server/lib/FlightDelayAccessController.json",
+			"path": "private/artifacts/FlightDelayAccessController.json",
 			"checksum": "7be8689d86fe92faf6eb338fe04f45fe242c858b"
 		},
 		{
-			"path": "server/lib/FlightDelayController.json",
+			"path": "private/artifacts/FlightDelayController.json",
 			"checksum": "4a086895493aacca107dcf8814abe37c0275c8d8"
 		},
 		{
-			"path": "server/lib/FlightDelayDatabase.json",
+			"path": "private/artifacts/FlightDelayDatabase.json",
 			"checksum": "72bd9cb53f5fc16f4097355f0d024998f748795d"
 		},
 		{
-			"path": "server/lib/FlightDelayPayout.json",
+			"path": "private/artifacts/FlightDelayPayout.json",
 			"checksum": "a77217f29221fc3c12b61f060b167fd9dc44f7ae"
 		},
 		{
-			"path": "server/lib/FlightDelayAddressResolver.json",
+			"path": "private/artifacts/FlightDelayAddressResolver.json",
 			"checksum": "441eafc74aa6b81b1b4ac2a2d6f83a5ebda019b0"
+		},
+		{
+			"path": "server/server_startup.js",
+			"checksum": "99210011cf13f854bd907ab5accfb148ca4b379d"
 		},
 		{
 			"path": "lib/string_utils.js",
@@ -663,6 +667,7 @@
 		"lib/",
 		"packages/",
 		"private/",
+		"private/artifacts/",
 		"public/",
 		"public/fonts/",
 		"public/images/",

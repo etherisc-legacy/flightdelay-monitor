@@ -44,7 +44,7 @@ var ContractsContractsListItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["address", "network", "createTx", "createBlock", "createTime", "abi", "description", "commit"];
+		var searchFields = ["contractId", "version", "network", "address", "abi", "createTx", "createBlock", "createTime", "description", "commit"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
