@@ -10,7 +10,7 @@
 		},
 		{
 			"path": "client/client.js",
-			"checksum": "79ea60ef27792ef08da63ae630c55846d3cd6ee4"
+			"checksum": "fd19ffcff3f3f6b7729f99f674c180927f2dc579"
 		},
 		{
 			"path": "server/server.js",
@@ -238,11 +238,11 @@
 		},
 		{
 			"path": "client/views/policies/policies.html",
-			"checksum": "3110042f4a7c0b9d8db897b6272dca6b94ed5a42"
+			"checksum": "2016488f5c12d789f9e714c7b493278c395de94e"
 		},
 		{
 			"path": "client/views/policies/policies.js",
-			"checksum": "840e72b0f72ab26badd6ecb6e565fd690a4d074a"
+			"checksum": "49b8d5bd92554a17fe0479c1ffbdaf361f97a20e"
 		},
 		{
 			"path": "client/views/policies/policies_controller.js",
@@ -286,7 +286,7 @@
 		},
 		{
 			"path": "client/views/contracts/details/details.html",
-			"checksum": "9f11700761d60bceff123bd386aaa5e3ed90e187"
+			"checksum": "0f403a575b6e15e78f7e76dbd38c62458105c829"
 		},
 		{
 			"path": "client/views/contracts/details/details.js",
@@ -310,7 +310,7 @@
 		},
 		{
 			"path": "client/views/contracts/update/update.html",
-			"checksum": "373537ec10f392da4c1f851034abb5bd674744b8"
+			"checksum": "e240a76cb9aad0325bf20e2355ac429403aed551"
 		},
 		{
 			"path": "client/views/contracts/update/update.js",
@@ -481,8 +481,12 @@
 			"checksum": "441eafc74aa6b81b1b4ac2a2d6f83a5ebda019b0"
 		},
 		{
-			"path": "server/server_startup.js",
-			"checksum": "99210011cf13f854bd907ab5accfb148ca4b379d"
+			"path": "server/01_server_startup.js",
+			"checksum": "9f616759ebdbf10d7efeafc86515e33101c7f669"
+		},
+		{
+			"path": "server/02_readContracts.js",
+			"checksum": "3f238804e719e60895af08b7625022d93793e747"
 		},
 		{
 			"path": "lib/string_utils.js",

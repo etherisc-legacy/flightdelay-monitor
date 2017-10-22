@@ -31,13 +31,33 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
+			<div class="form-group  field-contract-id">
+				<label for="contractId">
+					contractId
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-contract-id">
+						{{contract.contractId}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-version">
+				<label for="version">
+					Version
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-version">
+						{{contract.version}}
+					</p>
+				</div>
+			</div>
 			<div class="form-group  field-address">
 				<label for="address">
 					Contract Address
 				</label>
 				<div class="input-div">
 					<p class="form-control-static  control-field-address">
-						{{contract.address}}
+						{{etherscan contract.address}}
 					</p>
 				</div>
 			</div>
@@ -81,16 +101,6 @@
 					</p>
 				</div>
 			</div>
-			<div class="form-group  field-abi">
-				<label for="abi">
-					ABI
-				</label>
-				<div class="input-div">
-					<p class="form-control-static  control-field-abi">
-						{{contract.abi}}
-					</p>
-				</div>
-			</div>
 			<div class="form-group  field-description">
 				<label for="description">
 					Description
@@ -98,6 +108,16 @@
 				<div class="input-div">
 					<p class="form-control-static  control-field-description">
 						{{contract.description}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-abi">
+				<label for="abi">
+					ABI
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-abi">
+						{{contract.abi}}
 					</p>
 				</div>
 			</div>

@@ -54,6 +54,9 @@
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="policyId">
+					PolicyId
+				</th>
 				<th class="th-sortable" data-sort="customer">
 					Customer
 				</th>
@@ -81,6 +84,12 @@
 				<th class="th-sortable" data-sort="stateMessage">
 					StateMessage
 				</th>
+				<th class="th-sortable" data-sort="currency">
+					Currency
+				</th>
+				<th class="th-sortable" data-sort="customerExternalId">
+					CustomerExternalId
+				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
@@ -91,6 +100,9 @@
 
 <template name="PoliciesPoliciesListTableItems">
 	<tr id="dataview-table-items-row">
+		<td>
+			{{policyId}}
+		</td>
 		<td>
 			{{addressShort customer}}
 		</td>
@@ -117,6 +129,12 @@
 		</td>
 		<td>
 			{{stateMessage}}
+		</td>
+		<td>
+			{{currency}}
+		</td>
+		<td>
+			{{customerExternalId}}
 		</td>
 	</tr>
 </template>

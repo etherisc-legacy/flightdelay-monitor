@@ -7,12 +7,17 @@ this.globalOnRendered = function() {
 
 Meteor.startup(function() {
 	
-Template.registerHelper("addressShort",  function (x) {
-  return x.slice(0,7) + '...';
+Template.registerHelper("addressShort",  function (address) {
+  return new Handlebars.SafeString('<a href="https://etherscan.io/address/' + address + '" target="blank">' + address.slice(0,7) + '...</a>');
 } );
 
 
+Template.registerHelper("etherscan",  function (address) {
+  return new Handlebars.SafeString('<a href = "https://etherscan.io/address/' + address + '" target="blank">' + address + '</a>');
+} );
 
+
+                        
 });
 
 App.logout = function() {

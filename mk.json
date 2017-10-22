@@ -12,7 +12,7 @@
 				"type": "collection",
 				"fields": [
 					{
-						"name": "id",
+						"name": "policyId",
 						"title": "PolicyId",
 						"type": "integer"
 					},
@@ -64,6 +64,16 @@
 					{
 						"name": "proof",
 						"title": "Proof",
+						"type": "string"
+					},
+					{
+						"name": "currency",
+						"title": "Currency",
+						"type": "string"
+					},
+					{
+						"name": "customerExternalId",
+						"title": "CustomerExternalId",
 						"type": "string"
 					}
 				]
@@ -781,10 +791,9 @@
 							"query_name": "policies_list",
 							"fields": [
 								{
-									"name": "id",
+									"name": "policyId",
 									"title": "PolicyId",
-									"type": "integer",
-									"show_in_dataview": false
+									"type": "integer"
 								},
 								{
 									"name": "customer",
@@ -837,6 +846,16 @@
 								{
 									"name": "stateMessage",
 									"title": "StateMessage",
+									"type": "string"
+								},
+								{
+									"name": "currency",
+									"title": "Currency",
+									"type": "string"
+								},
+								{
+									"name": "customerExternalId",
+									"title": "CustomerExternalId",
 									"type": "string"
 								}
 							],
@@ -1144,9 +1163,20 @@
 									"back_route": "contracts",
 									"fields": [
 										{
+											"name": "contractId",
+											"title": "contractId",
+											"type": "string"
+										},
+										{
+											"name": "version",
+											"title": "Version",
+											"type": "string"
+										},
+										{
 											"name": "address",
 											"title": "Contract Address",
-											"type": "string"
+											"type": "string",
+											"display_helper": "etherscan"
 										},
 										{
 											"name": "network",
@@ -1188,15 +1218,15 @@
 											"type": "date"
 										},
 										{
-											"name": "abi",
-											"title": "ABI",
-											"type": "string"
-										},
-										{
 											"name": "description",
 											"title": "Description",
 											"type": "string",
 											"input": "textarea"
+										},
+										{
+											"name": "abi",
+											"title": "ABI",
+											"type": "string"
 										},
 										{
 											"name": "commit",
@@ -1438,6 +1468,79 @@
 									"mode": "insert",
 									"submit_route": "contracts",
 									"cancel_route": "contracts",
+									"fields": [
+										{
+											"name": "contractId",
+											"title": "Contract ID",
+											"type": "string"
+										},
+										{
+											"name": "version",
+											"title": "Version",
+											"type": "string"
+										},
+										{
+											"name": "network",
+											"title": "Network",
+											"type": "string",
+											"input": "select",
+											"input_items": [
+												{
+													"value": "mainnet",
+													"title": "Mainnet"
+												},
+												{
+													"value": "ropsten",
+													"title": "Ropsten"
+												},
+												{
+													"value": "kovan",
+													"title": "Kovan"
+												},
+												{
+													"value": "rinkeby",
+													"title": "Rinkeby"
+												}
+											]
+										},
+										{
+											"name": "address",
+											"title": "Contract Address",
+											"type": "string"
+										},
+										{
+											"name": "abi",
+											"title": "ABI",
+											"type": "string"
+										},
+										{
+											"name": "createTx",
+											"title": "Creation Tx",
+											"type": "string",
+											"display_helper": "addressShort"
+										},
+										{
+											"name": "createBlock",
+											"title": "Creation Block",
+											"type": "string"
+										},
+										{
+											"name": "createTime",
+											"title": "Creation Time",
+											"type": "date"
+										},
+										{
+											"name": "description",
+											"title": "Description",
+											"type": "string",
+											"input": "textarea"
+										},
+										{
+											"name": "commit",
+											"title": "Github Commit",
+											"type": "string"
+										}
+									],
 									"object_type": "form"
 								}
 							]
@@ -1454,6 +1557,79 @@
 									"mode": "update",
 									"submit_route": "contracts",
 									"cancel_route": "contracts",
+									"fields": [
+										{
+											"name": "contractId",
+											"title": "Contract ID",
+											"type": "string"
+										},
+										{
+											"name": "version",
+											"title": "Version",
+											"type": "string"
+										},
+										{
+											"name": "network",
+											"title": "Network",
+											"type": "string",
+											"input": "select",
+											"input_items": [
+												{
+													"value": "mainnet",
+													"title": "Mainnet"
+												},
+												{
+													"value": "ropsten",
+													"title": "Ropsten"
+												},
+												{
+													"value": "kovan",
+													"title": "Kovan"
+												},
+												{
+													"value": "rinkeby",
+													"title": "Rinkeby"
+												}
+											]
+										},
+										{
+											"name": "address",
+											"title": "Contract Address",
+											"type": "string"
+										},
+										{
+											"name": "abi",
+											"title": "ABI",
+											"type": "string"
+										},
+										{
+											"name": "createTx",
+											"title": "Creation Tx",
+											"type": "string",
+											"display_helper": "addressShort"
+										},
+										{
+											"name": "createBlock",
+											"title": "Creation Block",
+											"type": "string"
+										},
+										{
+											"name": "createTime",
+											"title": "Creation Time",
+											"type": "date"
+										},
+										{
+											"name": "description",
+											"title": "Description",
+											"type": "string",
+											"input": "textarea"
+										},
+										{
+											"name": "commit",
+											"title": "Github Commit",
+											"type": "string"
+										}
+									],
 									"object_type": "form"
 								}
 							],
@@ -1554,7 +1730,7 @@
 				}
 			]
 		},
-		"client_startup_code": "Template.registerHelper(\"addressShort\",  function (x) {\n  return x.slice(0,7) + '...';\n} );\n\n\n",
+		"client_startup_code": "Template.registerHelper(\"addressShort\",  function (address) {\n  return new Handlebars.SafeString('<a href=\"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address.slice(0,7) + '...</a>');\n} );\n\n\nTemplate.registerHelper(\"etherscan\",  function (address) {\n  return new Handlebars.SafeString('<a href = \"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address + '</a>');\n} );\n\n\n                        ",
 		"copy_files": [
 			{
 				"source": "../flightDelay/build/contracts/FlightDelayNewPolicy.json",
@@ -1589,8 +1765,12 @@
 				"dest": "PRIVATE_DIR/artifacts/FlightDelayAddressResolver.json"
 			},
 			{
-				"source_content": "var winston = require('winston');\nvar fs = require('fs');\n\nvar network = 'mainnet';\nvar version = '1.0';\n\n\nString.prototype.padLeft = function (length) {\n        var pad = ' '.repeat(length);\n        return String(pad + this).slice(-length);\n};\n\nString.prototype.padRight = function(l,c) {\n  return this+Array(Math.max(0, l-this.length+1)).join(c||\" \");};\n\nvar ServerLogger = new (winston.Logger)({\n  transports: [\n    new (winston.transports.File)({\n      filename: 'Server.log',\n      json: false,\n      timestamp: function() {\n        return new Date().toISOString();\n      },\n      formatter: function(options) {\n        // Options object will be passed to the format function. \n        // It's general properties are: \n        //\t\ttimestamp, \n        //\t\tlevel, \n        //\t\tmessage, \n        //\t\tmeta. \n        // Depending on the transport type may be additional properties.\n        // Return string will be passed to logger.\n        var levelString = options.level.toUpperCase().padRight(10);\n        return options.timestamp() + \n          ' ' + \n          levelString +\n          (options.message ? options.message : '') +\n          (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta) : '' );\n      }})\n   ]\n});\n\nvar Web3 = require('web3');\n\nweb3 = new Web3(new Web3.providers.HttpProvider(\"http:/35.158.95.25:8545\"));\n\nartifacts = jsonfile => JSON.parse(Assets.getText(jsonfile));\n\ngetContract = (contractId, version, network) => {\n  \n  \tvar contractItem = Contracts.findOne({\n  \t\t\tcontractId: contractId, \n  \t\t\tversion: version,\n  \t\t\tnetwork: network\n\t\t});\n  \tif (typeof contractItem === 'undefined') return undefined;\n\treturn web3.eth.contract(artifacts('artifacts/' + contractId + '.json').abi).at(contractItem.address);\n\n};\n\n\nFlightDelayNewPolicy \t\t= getContract('FlightDelayNewPolicy', version, network);\nFlightDelayUnderwrite \t\t= getContract('FlightDelayUnderwrite', version, network);\nFlightDelayPayout \t\t\t= getContract('FlightDelayPayout', version, network);\nFlightDelayController \t\t= getContract('FlightDelayController', version, network);\nFlightDelayAccessController = getContract('FlightDelayAccessController', version, network);\nFlightDelayLedger \t\t\t= getContract('FlightDelayLedger', version, network);\nFlightDelayDatabase \t\t= getContract('FlightDelayDatabase', version, network);\n\n/*\nconsole.log('Server started');\n\nvar policyCount = FD.getPolicyCount();\n\nvar statusToString = function (status) {\n        var sts = {\n                0 : \"Applied\",\n                1 : \"Accepted\",\n                2 : \"Revoked\",\n                3 : \"Paid Out\",\n                4 : \"Expired\",\n                5 : \"Declined\"\n        };\n        return sts[status];\n};\n\nvar policyFormatterLong = function (policyId, policy, risk) {\n\tif (!Policies.findOne({id:policyId})) {\n        Policies.insert({ \n                id: policyId,\n                customer: policy[0], \n                state: statusToString(policy[6].toNumber()), \n                premium: web3.fromWei(policy[1]).toFixed(2),\n                riskId: policy[2],\n                weight: policy[3].toFixed(0),\n                calculatedPayout: web3.fromWei(policy[4]).toFixed(2), \n                actualPayout: web3.fromWei(policy[5]).toFixed(2),\n                stateTime: new Date(policy[7].toNumber() * 1000).toLocaleString('de'),\n\t\t\t\tstateMessage: policy[8].toNumber()\n        });\n\t}\n\n    if (!Risks.findOne({riskId: policy[2]})) {\n\t\tRisks.insert({\n          riskId: policy[2],\n          carrierFlightNumber: risk[0],\n          departureYearMonthDay: risk[1],\n          arrivalTime: new Date(risk[2].toNumber() * 1000).toLocaleString('de'), \n          delayInMinutes: risk[3].toNumber(),\n          delay: risk[4].toNumber(),\n          cumulatedWeightedPremium: web3.fromWei(risk[5]).toFixed(2),\n          premiumMultiplier: risk[6].toFixed(2)\n        });\n\t}\n  \n};\n\nPolicies.remove({});\n\nfor (var id = 0; id < policyCount; id++) {\n\ttry {\n\t\tif (!Policies.findOne({id: id})) {\n          console.log(id);\n          var policy = Meteor.wrapAsync(FD.policies)(id);\n          var risk = Meteor.wrapAsync(FD.risks)(policy[2]);\n          policyFormatterLong(id, policy, risk);\n        }\n\t} catch (e) {\n\t\tconsole.log(e);\n\t\tbreak;\n\t}\n}\n\nLedger.remove({});\nLedger.insert({\n\taccount: 0,\n\tbalance: web3.fromWei(FD.ledger(0)).toFixed(4),\n\tdescription: 'Premiums'\n});\n\nLedger.insert({\n\taccount: 1,\n\tbalance: web3.fromWei(FD.ledger(1)).toFixed(4),\n\tdescription: 'Risk Fund'\n});\n\nLedger.insert({\n\taccount: 2,\n\tbalance: web3.fromWei(FD.ledger(2)).toFixed(4),\n\tdescription: 'Payouts'\n});\n\nLedger.insert({\n\taccount: 3,\n\tdescription: 'Balance',\n\tbalance: web3.fromWei(FD.ledger(3)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 4,\n\tdescription: 'Reward',\n\tbalance: web3.fromWei(FD.ledger(4)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 5,\n\tdescription: 'OraclizeCosts',\n\tbalance: web3.fromWei(FD.ledger(5)).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 6,\n\tdescription: 'Contract Balance',\n\tbalance: web3.fromWei(web3.eth.getBalance(contract_address)).toFixed(4)\n});\n\n*/\n",
-				"dest": "SERVER_DIR/server_startup.js"
+				"source_content": "var winston = require('winston');\nvar fs = require('fs');\n\nnetwork = 'mainnet';\nversion = '1.0';\n\n\nString.prototype.padLeft = function (length) {\n        var pad = ' '.repeat(length);\n        return String(pad + this).slice(-length);\n};\n\nString.prototype.padRight = function(l,c) {\n  return this+Array(Math.max(0, l-this.length+1)).join(c||\" \");};\n\nServerLogger = new (winston.Logger)({\n  transports: [\n    new (winston.transports.File)({\n      filename: 'Server.log',\n      json: false,\n      timestamp: function() {\n        return new Date().toISOString();\n      },\n      formatter: function(options) {\n        // Options object will be passed to the format function. \n        // It's general properties are: \n        //\t\ttimestamp, \n        //\t\tlevel, \n        //\t\tmessage, \n        //\t\tmeta. \n        // Depending on the transport type may be additional properties.\n        // Return string will be passed to logger.\n        var levelString = options.level.toUpperCase().padRight(10);\n        return options.timestamp() + \n          ' ' + \n          levelString +\n          (options.message ? options.message : '') +\n          (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta) : '' );\n      }})\n   ]\n});\n\nvar Web3 = require('web3');\n\nweb3 = new Web3(new Web3.providers.HttpProvider(\"http://35.158.95.25:8545\"));\n//web3.eth.getBlockNumber((err, result) => { console.log(result); });\n\nartifacts = jsonfile => JSON.parse(Assets.getText(jsonfile));\n\ngetContract = (contractId, contractName, version, network) => {\n  \n  \tvar contractItem = Contracts.findOne({\n  \t\t\tcontractId: contractId, \n  \t\t\tversion: version,\n  \t\t\tnetwork: network\n\t\t});\n  \tif (typeof contractItem === 'undefined') return undefined;\n\treturn web3.eth.contract(artifacts('artifacts/' + contractName + '.json').abi).at(contractItem.address);\n\n};\n\nFlightDelayController = getContract('FD.Controller', 'FlightDelayController', version, network);\n\nupsertContract = (contractId, version, network) => {\n  \n    contract = Meteor.wrapAsync(FlightDelayController.contracts)(contractId);\n \n  \tContracts.update(\n      {contractId: contractId, version: version, network: network},\n      {$set: {address: contract[0], contractId: contractId, version: version, network: network}},\n      {upsert: true}\n    );\n  \n}\n\nif (typeof FlightDelayController != 'undefined') {\n\n  \tupsertContract('FD.NewPolicy', version, network);\n \tupsertContract('FD.Underwrite', version, network);\n  \tupsertContract('FD.Payout', version, network);\n  \tupsertContract('FD.AccessController', version, network);\n  \tupsertContract('FD.Ledger', version, network);\n  \tupsertContract('FD.Database', version, network);\n  \tupsertContract('FD.CustomersAdmin', version, network);\n  \tupsertContract('FD.Emergency', version, network);\n  \tupsertContract('FD.Owner', version, network);\n  \tupsertContract('FD.Funder', version, network);\n  \n}\n\nconsole.log('Server started');\n\n",
+				"dest": "SERVER_DIR/01_server_startup.js"
+			},
+			{
+				"source_content": "\n\nFlightDelayDatabase = getContract('FD.Database', 'FlightDelayDatabase', version, network);\nFlightDelayLedger = getContract('FD.Ledger', 'FlightDelayLedger', version, network);\nLedgerAddress = FlightDelayLedger.address;\nLedgerBalance = FlightDelayLedger.balance;\n\nconsole.log('LedgerAddress: ', LedgerAddress);\n\nFD = {};\nFD.Ledger = Meteor.wrapAsync(FlightDelayDatabase.ledger);\nFD.Policies = Meteor.wrapAsync(FlightDelayDatabase.policies);\nFD.Risks = Meteor.wrapAsync(FlightDelayDatabase.risks);\n\nLedger.remove({});\nLedger.insert({\n\taccount: 0,\n\tbalance: Number(web3.fromWei(FD.Ledger(0))).toFixed(4),\n\tdescription: 'Premiums'\n});\n\nLedger.insert({\n\taccount: 1,\n\tbalance: Number(web3.fromWei(FD.Ledger(1))).toFixed(4),\n\tdescription: 'Risk Fund'\n});\n\nLedger.insert({\n\taccount: 2,\n\tbalance: Number(web3.fromWei(FD.Ledger(2))).toFixed(4),\n\tdescription: 'Payouts'\n});\n\nLedger.insert({\n\taccount: 3,\n\tdescription: 'Balance',\n\tbalance: Number(web3.fromWei(FD.Ledger(3))).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 4,\n\tdescription: 'Reward',\n\tbalance: Number(web3.fromWei(FD.Ledger(4))).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 5,\n\tdescription: 'OraclizeCosts',\n\tbalance: Number(web3.fromWei(FD.Ledger(5))).toFixed(4)\n});\n\nLedger.insert({\n\taccount: 6,\n\tdescription: 'Contract Balance',\n\tbalance: Number(web3.fromWei(LedgerBalance)).toFixed(4)\n});\n\n\n//var policyCount = FD.getPolicyCount();\n\nvar statusToString = function (status) {\n        var sts = {\n                0 : \"Applied\",\n                1 : \"Accepted\",\n                2 : \"Revoked\",\n                3 : \"Paid Out\",\n                4 : \"Expired\",\n                5 : \"Declined\"\n        };\n        return sts[status];\n};\n\nvar currencyToString = function (currency) {\n        var cur = {\n                0 : \"ETH\",\n                1 : \"EUR\",\n                2 : \"USD\",\n                3 : \"GBP\"\n        };\n        return cur[currency];\n};\n\nvar policyFormatterLong = function (policyId, policy, risk) {\n\tif (!Policies.findOne({id:policyId})) {\n        Policies.insert({ \n                policyId: policyId,\n                customer: policy[0], \n                state: statusToString(policy[6].toNumber()), \n                premium: web3.fromWei(policy[1]).toFixed(2),\n                riskId: policy[2],\n                weight: policy[3].toFixed(0),\n                calculatedPayout: web3.fromWei(policy[4]).toFixed(2), \n                actualPayout: web3.fromWei(policy[5]).toFixed(2),\n                stateTime: new Date(policy[7].toNumber() * 1000).toLocaleString('de'),\n\t\t\t\tstateMessage: Buffer.from(policy[8].slice(2), 'hex').toString().replace(/\\0/g, ''),\n\t\t\t\tcurrency: currencyToString(policy[10]),\n\t\t\t\tcustomerExternalId: Buffer.from(policy[11].slice(2), 'hex').toString().replace(/\\0/g, '')\n        });\n\t}\n\n    if (!Risks.findOne({riskId: policy[2]})) {\n\t\tRisks.insert({\n          riskId: policy[2],\n          carrierFlightNumber: Buffer(risk[0].slice(2),'hex').toString().replace(/\\0/g, ''),\n          departureYearMonthDay: Buffer(risk[1].slice(2), 'hex').toString().replace(/\\0/g, ''),\n          arrivalTime: new Date(risk[2].toNumber() * 1000).toLocaleString('de'), \n          delayInMinutes: risk[3].toNumber(),\n          delay: risk[4].toNumber(),\n          cumulatedWeightedPremium: web3.fromWei(risk[5]).toFixed(2),\n          premiumMultiplier: risk[6].toFixed(2)\n        });\n\t}\n  \n};\n\nPolicies.remove({});\nRisks.remove({});\n\nvar id = 0; \nwhile (true) {\n\ttry {\n\t\tif (!Policies.findOne({policyId: id})) {\n          console.log(id);\n          var policy = FD.Policies(id);\n          var risk = FD.Risks(policy[2]);\n          policyFormatterLong(id, policy, risk);\n        }\n\t} catch (e) {\n\t\tconsole.log(e);\n\t\tbreak;\n\t}\n    id++;\n}\n\n",
+				"dest": "SERVER_DIR/02_readContracts.js"
 			}
 		],
 		"packages": {

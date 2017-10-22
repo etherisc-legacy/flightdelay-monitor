@@ -44,7 +44,7 @@ var PoliciesPoliciesListItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["id", "customer", "premium", "riskId", "weight", "calculatedPayout", "actualPayout", "state", "stateTime", "stateMessage"];
+		var searchFields = ["policyId", "customer", "premium", "riskId", "weight", "calculatedPayout", "actualPayout", "state", "stateTime", "stateMessage", "currency", "customerExternalId"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
