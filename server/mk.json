@@ -19,8 +19,7 @@
 					{
 						"name": "customer",
 						"title": "Customer",
-						"type": "string",
-						"display_helper": "etherscan"
+						"type": "string"
 					},
 					{
 						"name": "premium",
@@ -55,8 +54,7 @@
 					{
 						"name": "stateTime",
 						"title": "StateTime",
-						"type": "time",
-						"format": "YYYY-MM-DD hh:mm:ss"
+						"type": "time"
 					},
 					{
 						"name": "stateMessage",
@@ -263,8 +261,8 @@
 				"type": "collection",
 				"fields": [
 					{
-						"name": "event",
-						"title": "Event",
+						"name": "signature",
+						"title": "Signature",
 						"type": "string"
 					},
 					{
@@ -273,55 +271,23 @@
 						"type": "string"
 					},
 					{
-						"name": "blockNumber",
+						"name": "block",
 						"title": "Block",
-						"type": "integer"
+						"type": "string"
 					},
 					{
-						"name": "timestamp",
+						"name": "blockTime",
 						"title": "BlockTime",
-						"type": "date"
+						"type": "string"
 					},
 					{
-						"name": "transactionHash",
+						"name": "txHash",
 						"title": "TxHash",
 						"type": "string"
 					},
 					{
 						"name": "args",
 						"title": "Arguments",
-						"type": "string"
-					},
-					{
-						"name": "logIndex",
-						"title": "LogIndex",
-						"type": "string"
-					},
-					{
-						"name": "type",
-						"title": "Type",
-						"type": "string"
-					},
-					{
-						"name": "address",
-						"title": "Address",
-						"type": "string"
-					},
-					{
-						"name": "argsString",
-						"title": "Arguments",
-						"type": "string",
-						"input": "textarea",
-						"display_helper": "safeString"
-					},
-					{
-						"name": "abstract",
-						"title": "Abstract",
-						"type": "string"
-					},
-					{
-						"name": "blockNumberLogIndex",
-						"title": "BlockNumber-LogIndex",
 						"type": "string"
 					}
 				]
@@ -417,20 +383,6 @@
 				"name": "logs_list",
 				"collection": "logs",
 				"filter": "{}",
-				"options": "{}"
-			},
-			{
-				"name": "log",
-				"collection": "logs",
-				"find_one": true,
-				"filter": "{\"_id\":\":logId\"}",
-				"options": "{}"
-			},
-			{
-				"name": "policy",
-				"collection": "policies",
-				"find_one": true,
-				"filter": "{\"_id\":\":policyId\"}",
 				"options": "{}"
 			}
 		],
@@ -893,13 +845,6 @@
 							"name": "policies_list",
 							"type": "data_view",
 							"query_name": "policies_list",
-							"details_route": "policies.details",
-							"details_route_params": [
-								{
-									"name": "policyId",
-									"value": "this._id"
-								}
-							],
 							"fields": [
 								{
 									"name": "policyId",
@@ -929,6 +874,16 @@
 									]
 								},
 								{
+									"name": "weight",
+									"title": "Weight",
+									"type": "integer"
+								},
+								{
+									"name": "calculatedPayout",
+									"title": "CalculatedPayout",
+									"type": "string"
+								},
+								{
 									"name": "actualPayout",
 									"title": "ActualPayout",
 									"type": "string"
@@ -942,7 +897,7 @@
 									"name": "stateTime",
 									"title": "StateTime",
 									"type": "date",
-									"format": "YYYY-MM-DD hh:mm:ss"
+									"format": "DD.MM.YYYY hh:mm:ss"
 								},
 								{
 									"name": "stateMessage",
@@ -953,30 +908,14 @@
 									"name": "currency",
 									"title": "Currency",
 									"type": "string"
+								},
+								{
+									"name": "customerExternalId",
+									"title": "CustomerExternalId",
+									"type": "string"
 								}
 							],
 							"object_type": "data_view"
-						}
-					],
-					"pages": [
-						{
-							"name": "details",
-							"type": "page",
-							"components": [
-								{
-									"name": "form",
-									"type": "form",
-									"title": "Policy Details",
-									"query_name": "policy",
-									"mode": "read_only",
-									"close_route": "policies",
-									"back_route": "policies",
-									"object_type": "form"
-								}
-							],
-							"route_params": [
-								"policyId"
-							]
 						}
 					]
 				},
@@ -1229,12 +1168,6 @@
 							"name": "ledger_list",
 							"type": "data_view",
 							"query_name": "ledger_list",
-							"details_route_params": [
-								{
-									"name": "logId",
-									"value": "this._id"
-								}
-							],
 							"object_type": "data_view"
 						}
 					]
@@ -1242,7 +1175,6 @@
 				{
 					"name": "contracts",
 					"type": "page",
-					"title": "Contracts",
 					"components": [
 						{
 							"name": "contracts_intro",
@@ -1257,12 +1189,13 @@
 									"object_type": "form"
 								}
 							],
-							"text": "List of all contracts:",
+							"text": "List of all risks:",
 							"object_type": "div"
 						},
 						{
 							"name": "contracts_list",
 							"type": "data_view",
+							"title": "Contracts",
 							"query_name": "contract_list",
 							"insert_route": "contracts.insert",
 							"details_route": "contracts.details",
@@ -1776,7 +1709,6 @@
 				{
 					"name": "logs",
 					"type": "page",
-					"title": "Event logs",
 					"components": [
 						{
 							"name": "logs_intro",
@@ -1798,132 +1730,13 @@
 							"name": "logs_list",
 							"type": "data_view",
 							"query_name": "logs_list",
-							"details_route": "logs.details",
-							"details_route_params": [
-								{
-									"name": "logId",
-									"value": "this._id"
-								}
-							],
-							"fields": [
-								{
-									"name": "event",
-									"title": "Event",
-									"type": "string"
-								},
-								{
-									"name": "contractId",
-									"title": "Contract",
-									"type": "string"
-								},
-								{
-									"name": "blockNumberLogIndex",
-									"title": "BlockNumber-LogIndex",
-									"type": "string"
-								},
-								{
-									"name": "timestamp",
-									"title": "BlockTime",
-									"type": "date",
-									"format": "YYYY-MM-DD hh:mm:ss"
-								},
-								{
-									"name": "type",
-									"title": "Type",
-									"type": "string"
-								},
-								{
-									"name": "abstract",
-									"title": "Abstract",
-									"type": "string"
-								}
-							],
 							"object_type": "data_view"
-						}
-					],
-					"pages": [
-						{
-							"name": "details",
-							"type": "page",
-							"components": [
-								{
-									"name": "form",
-									"type": "form",
-									"title": "Logs Details",
-									"query_name": "log",
-									"mode": "read_only",
-									"close_route": "logs",
-									"back_route": "logs",
-									"fields": [
-										{
-											"name": "event",
-											"title": "Event",
-											"type": "string"
-										},
-										{
-											"name": "abstract",
-											"title": "Abstract",
-											"type": "string"
-										},
-										{
-											"name": "argsString",
-											"title": "Arguments",
-											"type": "string",
-											"input": "textarea",
-											"display_helper": "safeString"
-										},
-										{
-											"name": "contractId",
-											"title": "Contract",
-											"type": "string"
-										},
-										{
-											"name": "blockNumber",
-											"title": "Block",
-											"type": "integer"
-										},
-										{
-											"name": "timestamp",
-											"title": "BlockTime",
-											"type": "date",
-											"format": "YYYY-MM-DD hh:mm:ss"
-										},
-										{
-											"name": "transactionHash",
-											"title": "TxHash",
-											"type": "string",
-											"display_helper": "etherscanTx"
-										},
-										{
-											"name": "logIndex",
-											"title": "LogIndex",
-											"type": "string"
-										},
-										{
-											"name": "type",
-											"title": "Type",
-											"type": "string"
-										},
-										{
-											"name": "address",
-											"title": "Address",
-											"type": "string",
-											"display_helper": "etherscan"
-										}
-									],
-									"object_type": "form"
-								}
-							],
-							"route_params": [
-								"logId"
-							]
 						}
 					]
 				},
 				{
 					"name": "networks",
 					"type": "page",
-					"title": "Networks",
 					"components": [
 						{
 							"name": "networks_intro",
@@ -1933,6 +1746,7 @@
 						{
 							"name": "view",
 							"type": "data_view",
+							"title": "Networks",
 							"query_name": "network_list",
 							"insert_route": "networks.insert",
 							"details_route": "networks.details",
@@ -2011,7 +1825,7 @@
 				}
 			]
 		},
-		"client_startup_code": "Template.registerHelper(\"addressShort\",  function (address) {\n  return new Handlebars.SafeString('<a href=\"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address.slice(0,7) + '...</a>');\n} );\n\n\nTemplate.registerHelper(\"etherscan\",  function (address) {\n  return new Handlebars.SafeString('<a href = \"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address + '</a>');\n} );\n\nTemplate.registerHelper(\"etherscanTx\",  function (tx) {\n  return new Handlebars.SafeString('<a href = \"https://etherscan.io/tx/' + tx + '\" target=\"blank\">' + tx + '</a>');\n} );\n\nTemplate.registerHelper(\"safeString\",  function (value) {\n  return new Handlebars.SafeString(value);\n} );\n\n                        ",
+		"client_startup_code": "Template.registerHelper(\"addressShort\",  function (address) {\n  return new Handlebars.SafeString('<a href=\"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address.slice(0,7) + '...</a>');\n} );\n\n\nTemplate.registerHelper(\"etherscan\",  function (address) {\n  return new Handlebars.SafeString('<a href = \"https://etherscan.io/address/' + address + '\" target=\"blank\">' + address + '</a>');\n} );\n\n\n                        ",
 		"copy_files": [
 			{
 				"source": "../flightDelay/build/contracts/FlightDelayNewPolicy.json",
@@ -2058,7 +1872,7 @@
 				"dest": "SERVER_DIR/03_reloadDatabase.js"
 			},
 			{
-				"source_content": "\n\n\nformatArgs = (args) => {\n  \n  result = [];\n  \n  for (var key in args) {\n    \n    if (key.slice(0,3) == 'str' || key == '_stateMessage') {\n      result.push(key + ' : ' + Buffer.from(args[key].slice(2), 'hex').toString().replace(/\\0/g,''));\n    } else {\n      result.push(key + ' : ' + args[key]);\n    }\n    \n  }\n  \n  return result.join('<br />');\n    \n}\n\nreadLogs = (contractId, contractName, version, network) => {\n\n  contract = getContract(contractId, contractName, version, network);\n  if (typeof contract == 'undefined') return;\n  \n  var allEvents = contract.allEvents({fromBlock: 4200000, toBlock: 'latest'});\n  \n  if (typeof allEvents == 'undefined') return;\n  \n\t\n  getLogs = (callback) => { allEvents.get(callback); };\n  \n  logs = Meteor.wrapAsync(getLogs)();\n      \n  for (var index in logs) {\n    event = logs[index];\n    event.argsString = formatArgs(event.args);\n    if (typeof event.args._policyId != 'undefined') {\n   \t\tevent.abstract = 'PolicyId: ' + (event.args._policyId.toNumber() + 10000).toString().slice(1);\n    }\n    block = web3.eth.getBlock(event.blockNumber);\n    event.timestamp = block.timestamp*1000;\n    event.blockNumberLogIndex = event.blockNumber + '-' + (event.logIndex + 10000).toString().slice(1);\n    Logs.insert(event);      \n  }\n\n}\n\n\nreloadLogs = () => {\n  \n  if (!contractsInitialized) return;\n\n  Logs.remove({});\n  \n  readLogs('FD.NewPolicy', 'FlightDelayNewPolicy', version, network);\n  readLogs('FD.Underwrite', 'FlightDelayUnderwrite', version, network);\n  readLogs('FD.Payout', 'FlightDelayPayout', version, network);\n  readLogs('FD.Ledger', 'FlightDelayLedger', version, network);\n  readLogs('FD.Database', 'FlightDelayDatabase', version, network);\n  readLogs('FD.AccessController', 'FlightDelayAccessController', version, network);\n  readLogs('FD.Controller', 'FlightDelayController', version, network);\n  \n \n}\n",
+				"source_content": "\n\nreloadLogs = () => {\n  \n  if (!contractsInitialized) return;\n  \n  FlightDelayUnderwrite = getContract('FD.Underwrite', 'FlightDelayUnderwrite', version, network);\n  \n  var LogOraclizeCall = FlightDelayUnderwrite.LogOraclizeCall({}, {fromBlock: 4200000, toBlock: 'latest'});\n  \n  LogOraclizeCall.get((err, logs) => {\n    \n    for (var index in logs) {\n\n      \n      console.log(logs[index]);\n      \n      \n      \n      \n    }\n    \n    \n    \n  });\n  \n  LogOraclizeCall.stopWatching();\n  \n}\n\n",
 				"dest": "SERVER_DIR/04_reloadLogs.js"
 			},
 			{

@@ -1,14 +1,14 @@
 var pageSession = new ReactiveDict();
 
-Template.Contracts.onCreated(function() {
+Template.Logs.onCreated(function() {
 	
 });
 
-Template.Contracts.onDestroyed(function() {
+Template.Logs.onDestroyed(function() {
 	
 });
 
-Template.Contracts.onRendered(function() {
+Template.Logs.onRendered(function() {
 	
 	Meteor.defer(function() {
 		globalOnRendered();
@@ -16,28 +16,28 @@ Template.Contracts.onRendered(function() {
 	});
 });
 
-Template.Contracts.events({
+Template.Logs.events({
 	
 });
 
-Template.Contracts.helpers({
+Template.Logs.helpers({
 	
 });
 
 
-Template.ContractsContractsIntroReloadContracts.onCreated(function() {
+Template.LogsLogsIntroReloadLogs.onCreated(function() {
 	
 });
 
-Template.ContractsContractsIntroReloadContracts.onDestroyed(function() {
+Template.LogsLogsIntroReloadLogs.onDestroyed(function() {
 	
 });
 
-Template.ContractsContractsIntroReloadContracts.onRendered(function() {
+Template.LogsLogsIntroReloadLogs.onRendered(function() {
 	
 
-	pageSession.set("contractsContractsIntroReloadContractsInfoMessage", "");
-	pageSession.set("contractsContractsIntroReloadContractsErrorMessage", "");
+	pageSession.set("logsLogsIntroReloadLogsInfoMessage", "");
+	pageSession.set("logsLogsIntroReloadLogsErrorMessage", "");
 
 	$(".input-group.date").each(function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
@@ -65,25 +65,25 @@ Template.ContractsContractsIntroReloadContracts.onRendered(function() {
 	$("input[autofocus]").focus();
 });
 
-Template.ContractsContractsIntroReloadContracts.events({
+Template.LogsLogsIntroReloadLogs.events({
 	"submit": function(e, t) {
 		e.preventDefault();
-		pageSession.set("contractsContractsIntroReloadContractsInfoMessage", "");
-		pageSession.set("contractsContractsIntroReloadContractsErrorMessage", "");
+		pageSession.set("logsLogsIntroReloadLogsInfoMessage", "");
+		pageSession.set("logsLogsIntroReloadLogsErrorMessage", "");
 
 		var self = this;
 
 		function submitAction(result, msg) {
-			var contractsContractsIntroReloadContractsMode = "update";
+			var logsLogsIntroReloadLogsMode = "update";
 			if(!t.find("#form-cancel-button")) {
-				switch(contractsContractsIntroReloadContractsMode) {
+				switch(logsLogsIntroReloadLogsMode) {
 					case "insert": {
 						$(e.target)[0].reset();
 					}; break;
 
 					case "update": {
 						var message = msg || "Saved.";
-						pageSession.set("contractsContractsIntroReloadContractsInfoMessage", message);
+						pageSession.set("logsLogsIntroReloadLogsInfoMessage", message);
 					}; break;
 				}
 			}
@@ -94,7 +94,7 @@ Template.ContractsContractsIntroReloadContracts.events({
 		function errorAction(msg) {
 			msg = msg || "";
 			var message = msg.message || msg || "Error.";
-			pageSession.set("contractsContractsIntroReloadContractsErrorMessage", message);
+			pageSession.set("logsLogsIntroReloadLogsErrorMessage", message);
 		}
 
 		validateForm(
@@ -108,11 +108,11 @@ Template.ContractsContractsIntroReloadContracts.events({
 			function(values) {
 				
 
-				Meteor.call('reloadContracts', (e,r) => { 
+				Meteor.call('reloadLogs', (e,r) => { 
   if (e) {
-    console.log('Error reloading contracts: ' + e.message);
+    console.log('Error reloading logs: ' + e.message);
   } else {
-    console.log('Contracts reloaded');
+    console.log('Logs reloaded');
   }
 });
 			}
@@ -141,24 +141,24 @@ Template.ContractsContractsIntroReloadContracts.events({
 	
 });
 
-Template.ContractsContractsIntroReloadContracts.helpers({
+Template.LogsLogsIntroReloadLogs.helpers({
 	"infoMessage": function() {
-		return pageSession.get("contractsContractsIntroReloadContractsInfoMessage");
+		return pageSession.get("logsLogsIntroReloadLogsInfoMessage");
 	},
 	"errorMessage": function() {
-		return pageSession.get("contractsContractsIntroReloadContractsErrorMessage");
+		return pageSession.get("logsLogsIntroReloadLogsErrorMessage");
 	}
 	
 });
 
-var ContractsContractsListItems = function(cursor) {
+var LogsLogsListItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("ContractsContractsListSearchString");
-	var sortBy = pageSession.get("ContractsContractsListSortBy");
-	var sortAscending = pageSession.get("ContractsContractsListSortAscending");
+	var searchString = pageSession.get("LogsLogsListSearchString");
+	var sortBy = pageSession.get("LogsLogsListSortBy");
+	var sortAscending = pageSession.get("LogsLogsListSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -170,7 +170,7 @@ var ContractsContractsListItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["contractId", "version", "network", "address", "abi", "createTx", "createBlock", "createTime", "description", "commit"];
+		var searchFields = ["event", "contractId", "blockNumberLogIndex", "timestamp", "type", "abstract"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -198,8 +198,8 @@ var ContractsContractsListItems = function(cursor) {
 	return filtered;
 };
 
-var ContractsContractsListExport = function(cursor, fileType) {
-	var data = ContractsContractsListItems(cursor);
+var LogsLogsListExport = function(cursor, fileType) {
+	var data = LogsLogsListItems(cursor);
 	var exportFields = [];
 
 	var str = exportArrayOfObjects(data, exportFields, fileType);
@@ -209,20 +209,20 @@ var ContractsContractsListExport = function(cursor, fileType) {
 	downloadLocalResource(str, filename, "application/octet-stream");
 }
 
-Template.ContractsContractsList.onCreated(function() {
+Template.LogsLogsList.onCreated(function() {
 	
 });
 
-Template.ContractsContractsList.onDestroyed(function() {
+Template.LogsLogsList.onDestroyed(function() {
 	
 });
 
-Template.ContractsContractsList.onRendered(function() {
-	pageSession.set("ContractsContractsListStyle", "table");
+Template.LogsLogsList.onRendered(function() {
+	pageSession.set("LogsLogsListStyle", "table");
 	
 });
 
-Template.ContractsContractsList.events({
+Template.LogsLogsList.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -235,7 +235,7 @@ Template.ContractsContractsList.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("ContractsContractsListSearchString", searchString);
+				pageSession.set("LogsLogsListSearchString", searchString);
 			}
 
 		}
@@ -251,7 +251,7 @@ Template.ContractsContractsList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("ContractsContractsListSearchString", searchString);
+					pageSession.set("LogsLogsListSearchString", searchString);
 				}
 
 			}
@@ -266,7 +266,7 @@ Template.ContractsContractsList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("ContractsContractsListSearchString", "");
+					pageSession.set("LogsLogsListSearchString", "");
 				}
 
 			}
@@ -278,119 +278,119 @@ Template.ContractsContractsList.events({
 
 	"click #dataview-insert-button": function(e, t) {
 		e.preventDefault();
-		Router.go("contracts.insert", mergeObjects(Router.currentRouteParams(), {}));
+		/**/
 	},
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		ContractsContractsListExport(this.contract_list, "csv");
+		LogsLogsListExport(this.logs_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		ContractsContractsListExport(this.contract_list, "csv");
+		LogsLogsListExport(this.logs_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		ContractsContractsListExport(this.contract_list, "tsv");
+		LogsLogsListExport(this.logs_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		ContractsContractsListExport(this.contract_list, "json");
+		LogsLogsListExport(this.logs_list, "json");
 	}
 
 	
 });
 
-Template.ContractsContractsList.helpers({
+Template.LogsLogsList.helpers({
 
 	"insertButtonClass": function() {
-		return Contracts.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return Logs.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.contract_list || this.contract_list.count() == 0;
+		return !this.logs_list || this.logs_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.contract_list && this.contract_list.count() > 0;
+		return this.logs_list && this.logs_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.contract_list && pageSession.get("ContractsContractsListSearchString") && ContractsContractsListItems(this.contract_list).length == 0;
+		return this.logs_list && pageSession.get("LogsLogsListSearchString") && LogsLogsListItems(this.logs_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("ContractsContractsListSearchString");
+		return pageSession.get("LogsLogsListSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("ContractsContractsListStyle") == "table";
+		return pageSession.get("LogsLogsListStyle") == "table";
 	},
 	"viewAsBlog": function() {
-		return pageSession.get("ContractsContractsListStyle") == "blog";
+		return pageSession.get("LogsLogsListStyle") == "blog";
 	},
 	"viewAsList": function() {
-		return pageSession.get("ContractsContractsListStyle") == "list";
+		return pageSession.get("LogsLogsListStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("ContractsContractsListStyle") == "gallery";
+		return pageSession.get("LogsLogsListStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.ContractsContractsListTable.onCreated(function() {
+Template.LogsLogsListTable.onCreated(function() {
 	
 });
 
-Template.ContractsContractsListTable.onDestroyed(function() {
+Template.LogsLogsListTable.onDestroyed(function() {
 	
 });
 
-Template.ContractsContractsListTable.onRendered(function() {
+Template.LogsLogsListTable.onRendered(function() {
 	
 });
 
-Template.ContractsContractsListTable.events({
+Template.LogsLogsListTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("ContractsContractsListSortBy");
+		var oldSortBy = pageSession.get("LogsLogsListSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("ContractsContractsListSortBy", newSortBy);
+		pageSession.set("LogsLogsListSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("ContractsContractsListSortAscending") || false;
-			pageSession.set("ContractsContractsListSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("LogsLogsListSortAscending") || false;
+			pageSession.set("LogsLogsListSortAscending", !sortAscending);
 		} else {
-			pageSession.set("ContractsContractsListSortAscending", true);
+			pageSession.set("LogsLogsListSortAscending", true);
 		}
 	}
 });
 
-Template.ContractsContractsListTable.helpers({
+Template.LogsLogsListTable.helpers({
 	"tableItems": function() {
-		return ContractsContractsListItems(this.contract_list);
+		return LogsLogsListItems(this.logs_list);
 	}
 });
 
 
-Template.ContractsContractsListTableItems.onCreated(function() {
+Template.LogsLogsListTableItems.onCreated(function() {
 	
 });
 
-Template.ContractsContractsListTableItems.onDestroyed(function() {
+Template.LogsLogsListTableItems.onDestroyed(function() {
 	
 });
 
-Template.ContractsContractsListTableItems.onRendered(function() {
+Template.LogsLogsListTableItems.onRendered(function() {
 	
 });
 
-Template.ContractsContractsListTableItems.events({
+Template.LogsLogsListTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		
-		Router.go("contracts.details", mergeObjects(Router.currentRouteParams(), {contractId: this._id}));
+		Router.go("logs.details", mergeObjects(Router.currentRouteParams(), {logId: this._id}));
 		return false;
 	},
 
@@ -405,7 +405,7 @@ Template.ContractsContractsListTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		Meteor.call("contractsUpdate", this._id, values, function(err, res) {
+		Meteor.call("logsUpdate", this._id, values, function(err, res) {
 			if(err) {
 				alert(err.message);
 			}
@@ -426,7 +426,7 @@ Template.ContractsContractsListTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Meteor.call("contractsRemove", me._id, function(err, res) {
+						Meteor.call("logsRemove", me._id, function(err, res) {
 							if(err) {
 								alert(err.message);
 							}
@@ -443,18 +443,18 @@ Template.ContractsContractsListTableItems.events({
 	},
 	"click #edit-button": function(e, t) {
 		e.preventDefault();
-		Router.go("contracts.update", mergeObjects(Router.currentRouteParams(), {contractId: this._id}));
+		/**/
 		return false;
 	}
 });
 
-Template.ContractsContractsListTableItems.helpers({
+Template.LogsLogsListTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return Contracts.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return Logs.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return Contracts.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return Logs.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });

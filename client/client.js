@@ -16,6 +16,13 @@ Template.registerHelper("etherscan",  function (address) {
   return new Handlebars.SafeString('<a href = "https://etherscan.io/address/' + address + '" target="blank">' + address + '</a>');
 } );
 
+Template.registerHelper("etherscanTx",  function (tx) {
+  return new Handlebars.SafeString('<a href = "https://etherscan.io/tx/' + tx + '" target="blank">' + tx + '</a>');
+} );
+
+Template.registerHelper("safeString",  function (value) {
+  return new Handlebars.SafeString(value);
+} );
 
                         
 });

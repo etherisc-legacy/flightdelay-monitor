@@ -2,7 +2,7 @@
 	"output_files": [
 		{
 			"path": "client/views/router.js",
-			"checksum": "7ab8c6509aa7f1b2c858328955b4225bc0ff0f48"
+			"checksum": "3014989b1f031d0dae738111fb175a7a954a8f7d"
 		},
 		{
 			"path": "server/controllers/router.js",
@@ -10,7 +10,7 @@
 		},
 		{
 			"path": "client/client.js",
-			"checksum": "fd19ffcff3f3f6b7729f99f674c180927f2dc579"
+			"checksum": "7a90c36052015fe912370aded3cfc7f554803138"
 		},
 		{
 			"path": "server/server.js",
@@ -38,7 +38,7 @@
 		},
 		{
 			"path": "client/views/layout/layout.html",
-			"checksum": "f22891577fcb24a6b006363acea29290df9952c2"
+			"checksum": "5181951a04551e1678f04c9e5de2f1241d882cd4"
 		},
 		{
 			"path": "client/views/layout/layout.js",
@@ -238,15 +238,27 @@
 		},
 		{
 			"path": "client/views/policies/policies.html",
-			"checksum": "2016488f5c12d789f9e714c7b493278c395de94e"
+			"checksum": "f19f869e7125e458ea4795c4798f6baa15a33301"
 		},
 		{
 			"path": "client/views/policies/policies.js",
-			"checksum": "49b8d5bd92554a17fe0479c1ffbdaf361f97a20e"
+			"checksum": "5fb4d0e51b3b12e9aed12f8726a48c8feeea3a94"
 		},
 		{
 			"path": "client/views/policies/policies_controller.js",
 			"checksum": "c32391fcd3f4a53e77f1236f1c2e1bb2036c6582"
+		},
+		{
+			"path": "client/views/policies/details/details.html",
+			"checksum": "ab8607069a70ca49448cd5b0296b7b5e496f9d12"
+		},
+		{
+			"path": "client/views/policies/details/details.js",
+			"checksum": "40fa921ba945553af9a707e31e30b6f72596477f"
+		},
+		{
+			"path": "client/views/policies/details/details_controller.js",
+			"checksum": "6875f3d9f912cace587360e1a90062b025efea05"
 		},
 		{
 			"path": "client/views/risks/risks.html",
@@ -274,11 +286,11 @@
 		},
 		{
 			"path": "client/views/contracts/contracts.html",
-			"checksum": "e7899c764ff63f45220decd3da312ffe56129ab6"
+			"checksum": "5e86ba0227e1d0567d3153ab325a9c53a5028e57"
 		},
 		{
 			"path": "client/views/contracts/contracts.js",
-			"checksum": "7be9ca13c3f7a6bd7317bbc5fcb0a1414ed8ac06"
+			"checksum": "47d7559171b0d7a95c2a35445036cd54f8ab2d43"
 		},
 		{
 			"path": "client/views/contracts/contracts_controller.js",
@@ -321,8 +333,32 @@
 			"checksum": "b5c80aaef6f21631ed5b4f0b654901bee478edbb"
 		},
 		{
+			"path": "client/views/logs/logs.html",
+			"checksum": "b70e57dba59701968a6c3ab4cd8a9acf550cfbc2"
+		},
+		{
+			"path": "client/views/logs/logs.js",
+			"checksum": "1c3d2720f60573e7b2d56a7959e1bd091f22a82e"
+		},
+		{
+			"path": "client/views/logs/logs_controller.js",
+			"checksum": "b3c52e0a5ceb83442608d83b9d2961c6afbd6492"
+		},
+		{
+			"path": "client/views/logs/details/details.html",
+			"checksum": "6f2b968063d50a2d1866d72fe06902513b6747dd"
+		},
+		{
+			"path": "client/views/logs/details/details.js",
+			"checksum": "722c6699e94be335aa27d124b67eaf5ad012e0a1"
+		},
+		{
+			"path": "client/views/logs/details/details_controller.js",
+			"checksum": "3f4a92ea69cf325b666c9065a9d80ecfae330791"
+		},
+		{
 			"path": "client/views/networks/networks.html",
-			"checksum": "926a75896ddd29ef4259020e5967f5851cdf2ef3"
+			"checksum": "2c2bd21a052cdcd6299673808d0dd116749de08f"
 		},
 		{
 			"path": "client/views/networks/networks.js",
@@ -382,7 +418,7 @@
 		},
 		{
 			"path": "server/publish/policies.js",
-			"checksum": "63272e7a51744895bfbdbd6b3c81758962b85676"
+			"checksum": "115fd24c32dacec18f051517aa37a7e588c5f808"
 		},
 		{
 			"path": "both/collections/risks.js",
@@ -449,6 +485,22 @@
 			"checksum": "3a865244eb30a71b4a15a9062bc391ae7dbb62f4"
 		},
 		{
+			"path": "both/collections/logs.js",
+			"checksum": "d3eb589c82f19d1a4ed302c1567d82d2bfa8ec7b"
+		},
+		{
+			"path": "server/methods/logs.js",
+			"checksum": "98503e1aab9ee0913ac68bacce509c2617768dd4"
+		},
+		{
+			"path": "server/collections/logs.js",
+			"checksum": "9ba875509fd49c94b5c68ebe8fa7100b6fa716ca"
+		},
+		{
+			"path": "server/publish/logs.js",
+			"checksum": "042ffba0465ac19bf4fc19ccfc0659b5e53561e0"
+		},
+		{
 			"path": "private/artifacts/FlightDelayNewPolicy.json",
 			"checksum": "cd3a72571e0e53389d0b82b2ec1632f3ee611cf2"
 		},
@@ -481,12 +533,28 @@
 			"checksum": "441eafc74aa6b81b1b4ac2a2d6f83a5ebda019b0"
 		},
 		{
-			"path": "server/01_server_startup.js",
-			"checksum": "9f616759ebdbf10d7efeafc86515e33101c7f669"
+			"path": "server/01_utilities.js",
+			"checksum": "d9aa2987a1b630ea0cb54f2577ccb22508c09ff3"
 		},
 		{
-			"path": "server/02_readContracts.js",
-			"checksum": "3f238804e719e60895af08b7625022d93793e747"
+			"path": "server/02_reloadContracts.js",
+			"checksum": "e7e326c8b685c67098bd15fc372e1bfc433e40cc"
+		},
+		{
+			"path": "server/03_reloadDatabase.js",
+			"checksum": "e34b13279445064ddd3d33287bc363d73cc13d60"
+		},
+		{
+			"path": "server/04_reloadLogs.js",
+			"checksum": "b2cbfb6e8fcd14f5fe6e6b79b9c7d49086602a35"
+		},
+		{
+			"path": "server/20_meteorMethods.js",
+			"checksum": "b0bff4f5086d3875d62a02c9223003ee73e26ce1"
+		},
+		{
+			"path": "server/90_server_startup.js",
+			"checksum": "b94e561d7f6ba722fd72012e93f302ed8682b501"
 		},
 		{
 			"path": "lib/string_utils.js",
@@ -654,12 +722,15 @@
 		"client/views/loading/",
 		"client/views/login/",
 		"client/views/logout/",
+		"client/views/logs/",
+		"client/views/logs/details/",
 		"client/views/networks/",
 		"client/views/networks/details/",
 		"client/views/networks/insert/",
 		"client/views/networks/update/",
 		"client/views/not_found/",
 		"client/views/policies/",
+		"client/views/policies/details/",
 		"client/views/register/",
 		"client/views/reset_password/",
 		"client/views/risks/",

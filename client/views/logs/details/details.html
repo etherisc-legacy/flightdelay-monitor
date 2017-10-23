@@ -1,0 +1,144 @@
+<template name="LogsDetails">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> LogsDetailsForm}}
+	</div>
+</template>
+
+<template name="LogsDetailsForm">
+	<div id="logs-details-form" class="">
+		<h2 id="component-title">
+			<a href="#" id="form-back-button" class="btn btn-default" title="back">
+				<span class="fa fa-chevron-left">
+				</span>
+			</a>
+			Logs Details
+		</h2>
+		<form role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}
+
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-event">
+				<label for="event">
+					Event
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-event">
+						{{log.event}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-abstract">
+				<label for="abstract">
+					Abstract
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-abstract">
+						{{log.abstract}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-args-string">
+				<label for="argsString">
+					Arguments
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-args-string">
+						{{safeString log.argsString}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-contract-id">
+				<label for="contractId">
+					Contract
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-contract-id">
+						{{log.contractId}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-block-number">
+				<label for="blockNumber">
+					Block
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-block-number">
+						{{log.blockNumber}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-timestamp">
+				<label for="timestamp">
+					BlockTime
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-timestamp">
+						{{formatDate log.timestamp 'YYYY-MM-DD hh:mm:ss'}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-transaction-hash">
+				<label for="transactionHash">
+					TxHash
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-transaction-hash">
+						{{etherscanTx log.transactionHash}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-log-index">
+				<label for="logIndex">
+					LogIndex
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-log-index">
+						{{log.logIndex}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-type">
+				<label for="type">
+					Type
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-type">
+						{{log.type}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-address">
+				<label for="address">
+					Address
+				</label>
+				<div class="input-div">
+					<p class="form-control-static  control-field-address">
+						{{etherscan log.address}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+					<a href="#" id="form-close-button" class="btn btn-primary">
+						OK
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+

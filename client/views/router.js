@@ -27,12 +27,15 @@ Router.privateRoutes = [
 	"user_settings.change_pass",
 	"logout",
 	"policies",
+	"policies.details",
 	"risks",
 	"ledger",
 	"contracts",
 	"contracts.details",
 	"contracts.insert",
 	"contracts.update",
+	"logs",
+	"logs.details",
 	"networks",
 	"networks.details",
 	"networks.insert",
@@ -96,12 +99,15 @@ Router.map(function () {
 	this.route("/user_settings/change_pass", {name: "user_settings.change_pass", controller: "UserSettingsChangePassController"});
 	this.route("/logout", {name: "logout", controller: "LogoutController"});
 	this.route("/policies", {name: "policies", controller: "PoliciesController"});
+	this.route("/policies/details/:policyId", {name: "policies.details", controller: "PoliciesDetailsController"});
 	this.route("/risks", {name: "risks", controller: "RisksController"});
 	this.route("/ledger", {name: "ledger", controller: "LedgerController"});
 	this.route("/contracts", {name: "contracts", controller: "ContractsController"});
 	this.route("/contracts/details/:contractId", {name: "contracts.details", controller: "ContractsDetailsController"});
 	this.route("/contracts/insert", {name: "contracts.insert", controller: "ContractsInsertController"});
 	this.route("/contracts/update/:contractId", {name: "contracts.update", controller: "ContractsUpdateController"});
+	this.route("/logs", {name: "logs", controller: "LogsController"});
+	this.route("/logs/details/:logId", {name: "logs.details", controller: "LogsDetailsController"});
 	this.route("/networks", {name: "networks", controller: "NetworksController"});
 	this.route("/networks/details/:networkId", {name: "networks.details", controller: "NetworksDetailsController"});
 	this.route("/networks/insert", {name: "networks.insert", controller: "NetworksInsertController"});

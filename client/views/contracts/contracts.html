@@ -2,21 +2,49 @@
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Contracts
+				</h2>
 				<div id="page_menu" class="pull-right">
 				</div>
 			</div>
 		</div>
 		<div id="contracts_intro" class="">
+			List of all contracts:{{> ContractsContractsIntroReloadContracts}}
 		</div>
 		{{> ContractsContractsList}}
 	</div>
 </template>
 
+<template name="ContractsContractsIntroReloadContracts">
+	<div id="contracts-contracts-intro-reload-contracts" class="">
+		<form role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}
+
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group">
+				<div class="submit-div">
+					<button id="form-submit-button" class="btn btn-success" type="submit">
+						<span class="fa fa-check">
+						</span>
+						Reload Contracts
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+
 <template name="ContractsContractsList">
 	<div id="contracts-contracts-list" class="">
-		<h2 id="component-title">
-			Contracts
-		</h2>
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-insert" class="form-group {{insertButtonClass}}">
 				<button type="submit" id="dataview-insert-button" class="btn btn-success">
